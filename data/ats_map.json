@@ -1,1 +1,1113 @@
-{}
+{
+ "1Komma5°": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "ABOUT YOU": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "ARX Robotics": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "AUTO1 Group": {
+  "ats": "smartrecruiters",
+  "slug": "auto1",
+  "checked": "2026-11-24"
+ },
+ "Ableton": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Ada Health": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Adjust": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Aeyde": {
+  "ats": "personio",
+  "slug": "aeyde",
+  "checked": "2026-11-24"
+ },
+ "Agile Robots": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Aignostics": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Alasco": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Alteos": {
+  "ats": "personio",
+  "slug": "alteos",
+  "checked": "2026-11-24"
+ },
+ "Anthropic": {
+  "ats": "greenhouse",
+  "slug": "anthropic",
+  "checked": "2026-11-24"
+ },
+ "AppLike Group": {
+  "ats": "ashby",
+  "slug": "applike-group",
+  "checked": "2026-11-24"
+ },
+ "Appcast": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Augustus": {
+  "ats": "ashby",
+  "slug": "augustus",
+  "checked": "2026-11-24"
+ },
+ "Avi Medical": {
+  "ats": "greenhouse",
+  "slug": "avimedical",
+  "checked": "2026-11-24"
+ },
+ "Axel Springer": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "BIT Capital": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Babbel": {
+  "ats": "ashby",
+  "slug": "babbel",
+  "checked": "2026-11-24"
+ },
+ "Back Market": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "BeamNG": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Bigpoint": {
+  "ats": "personio",
+  "slug": "bigpoint",
+  "checked": "2026-11-24"
+ },
+ "Black Forest Labs": {
+  "ats": "ashby",
+  "slug": "black-forest-labs",
+  "checked": "2026-11-24"
+ },
+ "Blinkist": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Bonial": {
+  "ats": "recruitee",
+  "slug": "bonial",
+  "checked": "2026-11-24"
+ },
+ "Brainlab": {
+  "ats": "smartrecruiters",
+  "slug": "brainlab",
+  "checked": "2026-11-24"
+ },
+ "Bryter": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Buena": {
+  "ats": "ashby",
+  "slug": "buena",
+  "checked": "2026-11-24"
+ },
+ "Buynomics": {
+  "ats": "greenhouse",
+  "slug": "buynomics",
+  "checked": "2026-11-24"
+ },
+ "CLOUDYRION": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Candis": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Capmo": {
+  "ats": "personio",
+  "slug": "capmo",
+  "checked": "2026-11-24"
+ },
+ "Cargoboard": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Celonis": {
+  "ats": "greenhouse",
+  "slug": "celonis",
+  "checked": "2026-11-24"
+ },
+ "Check24": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Choco": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Circula": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Clera": {
+  "ats": "ashby",
+  "slug": "Clera",
+  "checked": "2026-11-24"
+ },
+ "Cloud&Heat": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Clue": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "CoachHub": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Cognigy": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Cognite": {
+  "ats": "greenhouse",
+  "slug": "cognite",
+  "checked": "2026-11-24"
+ },
+ "Contentful": {
+  "ats": "greenhouse",
+  "slug": "contentful",
+  "checked": "2026-11-24"
+ },
+ "Cosuno": {
+  "ats": "ashby",
+  "slug": "cosuno",
+  "checked": "2026-11-24"
+ },
+ "Crytek": {
+  "ats": "lever",
+  "slug": "crytek",
+  "checked": "2026-11-24"
+ },
+ "Databricks": {
+  "ats": "greenhouse",
+  "slug": "databricks",
+  "checked": "2026-11-24"
+ },
+ "Datadog": {
+  "ats": "greenhouse",
+  "slug": "datadog",
+  "checked": "2026-11-24"
+ },
+ "DeepL": {
+  "ats": "ashby",
+  "slug": "deepl",
+  "checked": "2026-11-24"
+ },
+ "DeepSpin": {
+  "ats": "smartrecruiters",
+  "slug": "deepspin",
+  "checked": "2026-11-24"
+ },
+ "Delivery Hero": {
+  "ats": "smartrecruiters",
+  "slug": "DeliveryHero",
+  "checked": "2026-11-24"
+ },
+ "Doctolib": {
+  "ats": "ashby",
+  "slug": "doctolib",
+  "checked": "2026-11-24"
+ },
+ "Doctorly": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Dott": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Dynatrace": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "ESL FACEIT Group": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Ecosia": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Ecoworks": {
+  "ats": "greenhouse",
+  "slug": "ecoworks",
+  "checked": "2026-11-24"
+ },
+ "Enpal": {
+  "ats": "ashby",
+  "slug": "enpal",
+  "checked": "2026-11-24"
+ },
+ "Enter": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Eurowings Digital": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Everphone": {
+  "ats": "personio",
+  "slug": "everphone",
+  "checked": "2026-11-24"
+ },
+ "FINN": {
+  "ats": "lever",
+  "slug": "finn",
+  "checked": "2026-11-24"
+ },
+ "FISHLABS (Deep Silver)": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "FSC Global Development": {
+  "ats": "personio",
+  "slug": "fsc",
+  "checked": "2026-11-24"
+ },
+ "Fashion Cloud": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Feather": {
+  "ats": "personio",
+  "slug": "feather",
+  "checked": "2026-11-24"
+ },
+ "Finanzguru": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Flink": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "FlixBus / Flix": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Fonio": {
+  "ats": "ashby",
+  "slug": "fonio",
+  "checked": "2026-11-24"
+ },
+ "Forto": {
+  "ats": "ashby",
+  "slug": "forto",
+  "checked": "2026-11-24"
+ },
+ "Freeletics": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Freenow": {
+  "ats": "greenhouse",
+  "slug": "freenow",
+  "checked": "2026-11-24"
+ },
+ "GetYourGuide": {
+  "ats": "greenhouse",
+  "slug": "getyourguide",
+  "checked": "2026-11-24"
+ },
+ "Gigs": {
+  "ats": "ashby",
+  "slug": "gigs",
+  "checked": "2026-11-24"
+ },
+ "Goodgame Studios": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Grover": {
+  "ats": "greenhouse",
+  "slug": "grover",
+  "checked": "2026-11-24"
+ },
+ "HAWK:AI": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Hades Resources": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "HelloBetter": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "HelloFresh": {
+  "ats": "greenhouse",
+  "slug": "hellofresh",
+  "checked": "2026-11-24"
+ },
+ "Helsing": {
+  "ats": "greenhouse",
+  "slug": "helsing",
+  "checked": "2026-11-24"
+ },
+ "Hey Car": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "HeyJobs": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Heyflow": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Highsnobiety": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Holidu": {
+  "ats": "ashby",
+  "slug": "holidu",
+  "checked": "2026-11-24"
+ },
+ "Holoplot": {
+  "ats": "personio",
+  "slug": "holoplot",
+  "checked": "2026-11-24"
+ },
+ "HomeToGo": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "IONOS": {
+  "ats": "greenhouse",
+  "slug": "ionos",
+  "checked": "2026-11-24"
+ },
+ "Idealo": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "InnoGames": {
+  "ats": "lever",
+  "slug": "innogames",
+  "checked": "2026-11-24"
+ },
+ "Inovex": {
+  "ats": "recruitee",
+  "slug": "inovex",
+  "checked": "2026-11-24"
+ },
+ "Invia": {
+  "ats": "personio",
+  "slug": "invia",
+  "checked": "2026-11-24"
+ },
+ "Isar Aerospace": {
+  "ats": "greenhouse",
+  "slug": "isaraerospace",
+  "checked": "2026-11-24"
+ },
+ "JUCR": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "JetBrains": {
+  "ats": "greenhouse",
+  "slug": "jetbrains",
+  "checked": "2026-11-24"
+ },
+ "Jimdo": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "John Paul Construction": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "JustPlay": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "KONUX": {
+  "ats": "greenhouse",
+  "slug": "konux",
+  "checked": "2026-11-24"
+ },
+ "Kaia Health": {
+  "ats": "smartrecruiters",
+  "slug": "kaiahealth",
+  "checked": "2026-11-24"
+ },
+ "Kaufland e-commerce": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Kittl": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Klarna": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Kleinanzeigen": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Knowunity": {
+  "ats": "ashby",
+  "slug": "knowunity",
+  "checked": "2026-11-24"
+ },
+ "Kolibri Games": {
+  "ats": "lever",
+  "slug": "kolibrigames",
+  "checked": "2026-11-24"
+ },
+ "Kontist": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Kraken Technologies": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Langdock": {
+  "ats": "ashby",
+  "slug": "langdock",
+  "checked": "2026-11-24"
+ },
+ "Langfuse": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Lano": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Leapsome": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Limehome": {
+  "ats": "recruitee",
+  "slug": "limehome",
+  "checked": "2026-11-24"
+ },
+ "Luminovo": {
+  "ats": "ashby",
+  "slug": "luminovo",
+  "checked": "2026-11-24"
+ },
+ "MILES Mobility": {
+  "ats": "personio",
+  "slug": "miles-mobility",
+  "checked": "2026-11-24"
+ },
+ "MOIA": {
+  "ats": "greenhouse",
+  "slug": "moia",
+  "checked": "2026-11-24"
+ },
+ "Magazino": {
+  "ats": "personio",
+  "slug": "magazino",
+  "checked": "2026-11-24"
+ },
+ "Mambu": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Manex AI": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Marvel Fusion": {
+  "ats": "greenhouse",
+  "slug": "marvelfusion",
+  "checked": "2026-11-24"
+ },
+ "Merantix": {
+  "ats": "personio",
+  "slug": "merantix",
+  "checked": "2026-11-24"
+ },
+ "Mercanis": {
+  "ats": "personio",
+  "slug": "mercanis",
+  "checked": "2026-11-24"
+ },
+ "Mercura": {
+  "ats": "ashby",
+  "slug": "mercura",
+  "checked": "2026-11-24"
+ },
+ "Micropsi Industries": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Miro": {
+  "ats": "greenhouse",
+  "slug": "realtimeboardglobal",
+  "checked": "2026-11-24"
+ },
+ "Mistral AI": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Momox": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Mondu": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Moss": {
+  "ats": "ashby",
+  "slug": "moss",
+  "checked": "2026-11-24"
+ },
+ "Motius": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Movingimage": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Mytheresa": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "N26": {
+  "ats": "greenhouse",
+  "slug": "n26",
+  "checked": "2026-11-24"
+ },
+ "Native Instruments": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "NavVis": {
+  "ats": "greenhouse",
+  "slug": "navvis",
+  "checked": "2026-11-24"
+ },
+ "Nelly": {
+  "ats": "ashby",
+  "slug": "nelly",
+  "checked": "2026-11-24"
+ },
+ "Neura Robotics": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Oetker Digital": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Omio": {
+  "ats": "smartrecruiters",
+  "slug": "omio",
+  "checked": "2026-11-24"
+ },
+ "Onebrief": {
+  "ats": "ashby",
+  "slug": "onebrief",
+  "checked": "2026-11-24"
+ },
+ "Onefootball": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "OpenAI": {
+  "ats": "ashby",
+  "slug": "openai",
+  "checked": "2026-11-24"
+ },
+ "Orbem": {
+  "ats": "ashby",
+  "slug": "orbem",
+  "checked": "2026-11-24"
+ },
+ "Ostrom": {
+  "ats": "ashby",
+  "slug": "ostrom",
+  "checked": "2026-11-24"
+ },
+ "PAIR Finance": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Payrails": {
+  "ats": "ashby",
+  "slug": "payrails",
+  "checked": "2026-11-24"
+ },
+ "Penta": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Perk": {
+  "ats": "ashby",
+  "slug": "Perk",
+  "checked": "2026-11-24"
+ },
+ "Personio": {
+  "ats": "personio",
+  "slug": "personio",
+  "checked": "2026-11-24"
+ },
+ "Pflegix": {
+  "ats": "personio",
+  "slug": "pflegix",
+  "checked": "2026-11-24"
+ },
+ "Phlair": {
+  "ats": "ashby",
+  "slug": "phlair",
+  "checked": "2026-11-24"
+ },
+ "Planet": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Planradar": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Plantix": {
+  "ats": "recruitee",
+  "slug": "plantix",
+  "checked": "2026-11-24"
+ },
+ "Pliant": {
+  "ats": "ashby",
+  "slug": "pliant",
+  "checked": "2026-11-24"
+ },
+ "Prime Intellect": {
+  "ats": "ashby",
+  "slug": "primeintellect",
+  "checked": "2026-11-24"
+ },
+ "Productsup": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Project A Ventures": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Proxima Fusion": {
+  "ats": "ashby",
+  "slug": "proxima-fusion",
+  "checked": "2026-11-24"
+ },
+ "Qdrant": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Quantum Systems": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Raisin": {
+  "ats": "greenhouse",
+  "slug": "raisin",
+  "checked": "2026-11-24"
+ },
+ "Rasa": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Ratepay": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Rebuy": {
+  "ats": "recruitee",
+  "slug": "rebuy",
+  "checked": "2026-11-24"
+ },
+ "Reflex Aerospace": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "ResearchGate": {
+  "ats": "lever",
+  "slug": "researchgate",
+  "checked": "2026-11-24"
+ },
+ "Riverty": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "RobCo": {
+  "ats": "ashby",
+  "slug": "robco",
+  "checked": "2026-11-24"
+ },
+ "Ryte": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "SAP Fioneer": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Scalable Capital": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Scout24": {
+  "ats": "greenhouse",
+  "slug": "scout24",
+  "checked": "2026-11-24"
+ },
+ "Secfix": {
+  "ats": "ashby",
+  "slug": "secfix",
+  "checked": "2026-11-24"
+ },
+ "Sereact": {
+  "ats": "ashby",
+  "slug": "sereact",
+  "checked": "2026-11-24"
+ },
+ "Sevdesk": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Signavio": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "SimScale": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Smartclip": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Smava": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Solaris": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "SoundCloud": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Spreadgroup": {
+  "ats": "recruitee",
+  "slug": "spreadgroup",
+  "checked": "2026-11-24"
+ },
+ "Spryker": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Staffbase": {
+  "ats": "greenhouse",
+  "slug": "staffbase",
+  "checked": "2026-11-24"
+ },
+ "Statista": {
+  "ats": "ashby",
+  "slug": "statista",
+  "checked": "2026-11-24"
+ },
+ "Stripe": {
+  "ats": "greenhouse",
+  "slug": "stripe",
+  "checked": "2026-11-24"
+ },
+ "SumUp": {
+  "ats": "greenhouse",
+  "slug": "sumup",
+  "checked": "2026-11-24"
+ },
+ "Sunfire": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Superchat": {
+  "ats": "greenhouse",
+  "slug": "superchat",
+  "checked": "2026-11-24"
+ },
+ "Superhuman": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "TP-Link Deutschland": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Tacto": {
+  "ats": "ashby",
+  "slug": "tacto",
+  "checked": "2026-11-24"
+ },
+ "Tado": {
+  "ats": "personio",
+  "slug": "tado",
+  "checked": "2026-11-24"
+ },
+ "Talon.One": {
+  "ats": "greenhouse",
+  "slug": "talonone",
+  "checked": "2026-11-24"
+ },
+ "Tandem": {
+  "ats": "personio",
+  "slug": "tandem",
+  "checked": "2026-11-24"
+ },
+ "Taxdoo": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Taxfix": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "The Exploration Company": {
+  "ats": "ashby",
+  "slug": "the-exploration-company",
+  "checked": "2026-11-24"
+ },
+ "Thermondo": {
+  "ats": "personio",
+  "slug": "thermondo",
+  "checked": "2026-11-24"
+ },
+ "ToolTime": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Tourlane": {
+  "ats": "ashby",
+  "slug": "tourlane",
+  "checked": "2026-11-24"
+ },
+ "Trade Republic": {
+  "ats": "greenhouse",
+  "slug": "traderepublicbank",
+  "checked": "2026-11-24"
+ },
+ "Twentyfour Industries": {
+  "ats": "personio",
+  "slug": "twentyfour-industries",
+  "checked": "2026-11-24"
+ },
+ "Uberall": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Ubisoft (Blue Byte)": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Universal Quantum": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Unzer": {
+  "ats": "lever",
+  "slug": "unzer",
+  "checked": "2026-11-24"
+ },
+ "Upvest": {
+  "ats": "ashby",
+  "slug": "upvest",
+  "checked": "2026-11-24"
+ },
+ "Usercentrics": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Verimi": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Vimcar": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Vivid Money": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Wandelbots": {
+  "ats": "personio",
+  "slug": "wandelbots",
+  "checked": "2026-11-24"
+ },
+ "Wayve": {
+  "ats": "ashby",
+  "slug": "wayve",
+  "checked": "2026-11-24"
+ },
+ "Wefox": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Westwing": {
+  "ats": "personio",
+  "slug": "westwing",
+  "checked": "2026-11-24"
+ },
+ "Wooga": {
+  "ats": "greenhouse",
+  "slug": "wooga",
+  "checked": "2026-11-24"
+ },
+ "Workmotion": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Workpath": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Xentral": {
+  "ats": "lever",
+  "slug": "xentral",
+  "checked": "2026-11-24"
+ },
+ "YAGER": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Yokoy": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "Zeit AI": {
+  "ats": "ashby",
+  "slug": "zeit-ai",
+  "checked": "2026-11-24"
+ },
+ "Zenjob": {
+  "ats": "ashby",
+  "slug": "zenjob",
+  "checked": "2026-11-24"
+ },
+ "Zolar": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "adjoe": {
+  "ats": "ashby",
+  "slug": "adjoe",
+  "checked": "2026-11-24"
+ },
+ "akeno": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "allbranded": {
+  "ats": "personio",
+  "slug": "allbranded",
+  "checked": "2026-11-24"
+ },
+ "arculus": {
+  "ats": "personio",
+  "slug": "arculus",
+  "checked": "2026-11-24"
+ },
+ "atlantic.vc ventures": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "awork": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "comstruct": {
+  "ats": "ashby",
+  "slug": "comstruct",
+  "checked": "2026-11-24"
+ },
+ "deepset": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "enmacc": {
+  "ats": "greenhouse",
+  "slug": "enmacc",
+  "checked": "2026-11-24"
+ },
+ "epilot": {
+  "ats": "recruitee",
+  "slug": "epilot",
+  "checked": "2026-11-24"
+ },
+ "hexafarms": {
+  "ats": "personio",
+  "slug": "hexafarms",
+  "checked": "2026-11-24"
+ },
+ "justDice": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "justtrack": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "lemon.markets": {
+  "ats": "ashby",
+  "slug": "lemon-markets",
+  "checked": "2026-11-24"
+ },
+ "planqc": {
+  "ats": null,
+  "checked": "2026-11-24"
+ },
+ "synvert": {
+  "ats": "personio",
+  "slug": "synvert",
+  "checked": "2026-11-24"
+ },
+ "trivago": {
+  "ats": "greenhouse",
+  "slug": "trivago",
+  "checked": "2026-11-24"
+ }
+}

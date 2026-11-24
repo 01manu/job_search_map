@@ -1,0 +1,2159 @@
+[
+ {
+  "name": "N26",
+  "city": "Berlin",
+  "sector": "Marketing, legal, audit, data, product",
+  "visa": true,
+  "offer": "Relocation package with visa support.",
+  "group": "Visa sponsorship",
+  "ats": "greenhouse:n26"
+ },
+ {
+  "name": "trivago",
+  "city": "Düsseldorf",
+  "sector": "Data, marketing, product, HR, finance",
+  "visa": true,
+  "offer": "Visa support, relocation package, interest-free newcomer loan and free language classes.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Anthropic",
+  "city": "Munich",
+  "sector": "Sales, AI, customer success",
+  "visa": true,
+  "offer": "Sponsors visas, though not for every role or candidate.",
+  "group": "Visa sponsorship",
+  "ats": "greenhouse:anthropic"
+ },
+ {
+  "name": "JustPlay",
+  "city": "Berlin",
+  "sector": "Finance, growth, product, engineering",
+  "visa": true,
+  "offer": "Relocation package including visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Payrails",
+  "city": "Berlin",
+  "sector": "Payments tech, data, product",
+  "visa": true,
+  "offer": "Visa and relocation support for you and your family.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Clera",
+  "city": "Berlin / Munich",
+  "sector": "Engineering, commercial",
+  "visa": true,
+  "offer": "Visa sponsorship and relocation support. Note: at least one Munich role says no sponsorship, so check each ad.",
+  "group": "Visa sponsorship",
+  "ats": "ashby:Clera"
+ },
+ {
+  "name": "Superhuman",
+  "city": "Berlin",
+  "sector": "Design, security, engineering",
+  "visa": true,
+  "offer": "Visa assistance, relocation and settling-in services.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "The Exploration Company",
+  "city": "Munich",
+  "sector": "Space engineering, procurement, HR",
+  "visa": true,
+  "offer": "Relocation help, including visa sponsorship where applicable.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "TP-Link Deutschland",
+  "city": "Düsseldorf",
+  "sector": "E-commerce, design, trainee roles",
+  "visa": true,
+  "offer": "Visa sponsorship for Germany.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "planqc",
+  "city": "Garching (Munich)",
+  "sector": "Quantum tech, executive assistant",
+  "visa": true,
+  "offer": "Relocation and visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Bonial",
+  "city": "Berlin",
+  "sector": "Operations, process management",
+  "visa": true,
+  "offer": "Visa sponsorship for hires from outside Germany.",
+  "group": "Visa sponsorship",
+  "ats": "recruitee:bonial"
+ },
+ {
+  "name": "BIT Capital",
+  "city": "Berlin",
+  "sector": "Investment tech, data",
+  "visa": true,
+  "offer": "Visa sponsorship and relocation support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "FINN",
+  "city": "Munich",
+  "sector": "Car subscriptions, open applications",
+  "visa": true,
+  "offer": "Visa and relocation support for you and your family.",
+  "group": "Visa sponsorship",
+  "ats": "lever:finn"
+ },
+ {
+  "name": "Augustus",
+  "city": "Berlin",
+  "sector": "Engineering, internships",
+  "visa": true,
+  "offer": "Relocation and visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Hades Resources",
+  "city": "Munich",
+  "sector": "Mining engineering",
+  "visa": true,
+  "offer": "Relocation and visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Wayve",
+  "city": "Leonberg (Stuttgart)",
+  "sector": "Self-driving tech, data, product",
+  "visa": true,
+  "offer": "Relocation support and visa sponsorship where applicable.",
+  "group": "Visa sponsorship",
+  "ats": "ashby:wayve"
+ },
+ {
+  "name": "Aeyde",
+  "city": "Berlin",
+  "sector": "Fashion, merchandising",
+  "visa": true,
+  "offer": "Relocation help, including visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Mercanis",
+  "city": "Berlin",
+  "sector": "Sales graduate programme",
+  "visa": true,
+  "offer": "Sponsors your visa and covers relocation costs.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Prime Intellect",
+  "city": "Berlin",
+  "sector": "AI research",
+  "visa": true,
+  "offer": "Visa sponsorship and relocation support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Scout24",
+  "city": "Berlin",
+  "sector": "Property tech, engineering",
+  "visa": true,
+  "offer": "Relocation agency helps with your visa, plus a relocation package.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "HomeToGo",
+  "city": "Berlin",
+  "sector": "Travel tech, engineering, data",
+  "visa": true,
+  "offer": "Full visa sponsorship and relocation support for international hires.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Scalable Capital",
+  "city": "Munich / Berlin",
+  "sector": "Fintech, engineering, operations, tax",
+  "visa": true,
+  "offer": "Visa sponsorship; international relocation support if required; free German classes.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "AUTO1 Group",
+  "city": "Berlin",
+  "sector": "Car marketplace, engineering",
+  "visa": true,
+  "offer": "Relocation support to Germany, including visa.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "NavVis",
+  "city": "Munich",
+  "sector": "3D mapping tech, engineering, product",
+  "visa": true,
+  "offer": "Full visa and relocation support for international candidates.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "SimScale",
+  "city": "Munich",
+  "sector": "Simulation software, engineering",
+  "visa": true,
+  "offer": "Relocation and visa support for you and your family.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Motius",
+  "city": "Munich",
+  "sector": "R&D tech consulting, engineering",
+  "visa": true,
+  "offer": "Permanent roles with relocation and visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Talon.One",
+  "city": "Berlin / Munich",
+  "sector": "Promotion software, engineering",
+  "visa": true,
+  "offer": "Relocation help, including visa sponsorship where applicable.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Contentful",
+  "city": "Berlin",
+  "sector": "SaaS, engineering",
+  "visa": true,
+  "offer": "Visa services, relocation bonus, moving money and language courses.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Ostrom",
+  "city": "Berlin",
+  "sector": "Energy tech, product, engineering",
+  "visa": true,
+  "offer": "Visa and relocation support if you need it.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "PAIR Finance",
+  "city": "Berlin",
+  "sector": "Fintech, data, engineering",
+  "visa": true,
+  "offer": "Offers visa sponsorship.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Raisin",
+  "city": "Berlin",
+  "sector": "Fintech, savings platform",
+  "visa": true,
+  "offer": "Visa and relocation support, language classes.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "ABOUT YOU",
+  "city": "Hamburg",
+  "sector": "E-commerce, tech, product",
+  "visa": true,
+  "offer": "Help with relocation and the visa process.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "AppLike Group",
+  "city": "Hamburg",
+  "sector": "Mobile tech, engineering",
+  "visa": true,
+  "offer": "Relocation package with visa support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "justtrack",
+  "city": "Hamburg",
+  "sector": "Ad tech, engineering",
+  "visa": true,
+  "offer": "Visa support and language courses.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "allbranded",
+  "city": "Hamburg",
+  "sector": "E-commerce, marketing",
+  "visa": true,
+  "offer": "Visa and relocation support.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Ubisoft (Blue Byte)",
+  "city": "Düsseldorf / Mainz / Berlin",
+  "sector": "Games, engineering, art, design",
+  "visa": true,
+  "offer": "Visa support plus housing search and settle-in help via a relocation partner.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Appcast",
+  "city": "Cologne",
+  "sector": "Recruitment tech, sales, engineering",
+  "visa": true,
+  "offer": "Visa and legal support, relocation bonus, German classes paid back.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "CLOUDYRION",
+  "city": "Düsseldorf / Cologne",
+  "sector": "IT security consulting",
+  "visa": true,
+  "offer": "Roles tagged with visa sponsorship.",
+  "group": "Visa sponsorship"
+ },
+ {
+  "name": "Phorms Education",
+  "city": "Berlin / Hamburg / Frankfurt",
+  "sector": "Teachers, educators",
+  "visa": true,
+  "offer": "Relocation allowance, housing help and visa application support.",
+  "group": "Visa sponsorship",
+  "careers": "https://www.phorms.de/en/career/jobs",
+  "ats": "none"
+ },
+ {
+  "name": "Trade Republic",
+  "city": "Berlin",
+  "sector": "Finance, marketing, risk, tax",
+  "visa": true,
+  "offer": "Relocation support if required.",
+  "group": "Relocation support",
+  "ats": "greenhouse:traderepublicbank"
+ },
+ {
+  "name": "GetYourGuide",
+  "city": "Berlin",
+  "sector": "Partnerships, travel tech, marketing",
+  "visa": true,
+  "offer": "Competitive relocation package.",
+  "group": "Relocation support",
+  "ats": "greenhouse:getyourguide"
+ },
+ {
+  "name": "SumUp",
+  "city": "Cologne / Berlin",
+  "sector": "Fintech, engineering",
+  "visa": true,
+  "offer": "Relocation assistance and help finding a Kita place.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "JetBrains",
+  "city": "Berlin / Munich",
+  "sector": "Product, engineering",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "HelloFresh",
+  "city": "Berlin",
+  "sector": "Procurement, marketing, UX, finance",
+  "visa": true,
+  "offer": "Berlin relocation support.",
+  "group": "Relocation support",
+  "ats": "greenhouse:hellofresh"
+ },
+ {
+  "name": "Helsing",
+  "city": "Munich / Berlin",
+  "sector": "Finance, product, engineering, compliance",
+  "visa": true,
+  "offer": "Up to €2,500 plus 4 weeks of temporary housing.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "OpenAI",
+  "city": "Munich",
+  "sector": "Strategy & ops, ads, engineering",
+  "visa": true,
+  "offer": "Relocation assistance for new hires.",
+  "group": "Relocation support",
+  "ats": "ashby:openai"
+ },
+ {
+  "name": "Mistral AI",
+  "city": "Munich / Berlin",
+  "sector": "AI, engineering, deployment",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "adjoe",
+  "city": "Hamburg",
+  "sector": "Product, data, engineering",
+  "visa": true,
+  "offer": "Relocation bonus and German classes.",
+  "group": "Relocation support",
+  "ats": "ashby:adjoe"
+ },
+ {
+  "name": "Doctolib",
+  "city": "Berlin",
+  "sector": "Health tech, engineering",
+  "visa": true,
+  "offer": "Relocation support for international moves.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Isar Aerospace",
+  "city": "Munich",
+  "sector": "Space tech, cybersecurity, engineering",
+  "visa": true,
+  "offer": "Relocation bonus.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Marvel Fusion",
+  "city": "Munich",
+  "sector": "Procurement, engineering",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "ARX Robotics",
+  "city": "Munich",
+  "sector": "Trade compliance, engineering",
+  "visa": true,
+  "offer": "Relocation support where applicable.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Manex AI",
+  "city": "Munich",
+  "sector": "Partnerships, engineering",
+  "visa": true,
+  "offer": "Relocation support, including corporate housing.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "comstruct",
+  "city": "Munich",
+  "sector": "Construction tech, engineering",
+  "visa": true,
+  "offer": "Relocation support for your move to Munich.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Twentyfour Industries",
+  "city": "Munich",
+  "sector": "Engineering, operations, customs",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "FSC Global Development",
+  "city": "Bonn",
+  "sector": "Learning & development, sustainability",
+  "visa": true,
+  "offer": "Relocation support where applicable.",
+  "group": "Relocation support",
+  "ats": "personio:fsc"
+ },
+ {
+  "name": "KONUX",
+  "city": "Munich",
+  "sector": "Rail tech, data science",
+  "visa": true,
+  "offer": "Comprehensive relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Orbem",
+  "city": "Munich",
+  "sector": "Imaging tech, product, operations",
+  "visa": true,
+  "offer": "Support with your move to Germany.",
+  "group": "Relocation support",
+  "ats": "ashby:orbem"
+ },
+ {
+  "name": "Zeit AI",
+  "city": "Munich",
+  "sector": "Sales, marketing, people ops, engineering",
+  "visa": true,
+  "offer": "Covers relocation within Europe.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Fonio",
+  "city": "Munich",
+  "sector": "Design, SEO, performance marketing",
+  "visa": true,
+  "offer": "Relocation bonus.",
+  "group": "Relocation support",
+  "ats": "ashby:fonio"
+ },
+ {
+  "name": "Sereact",
+  "city": "Stuttgart",
+  "sector": "Robotics, AI",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Onebrief",
+  "city": "Wiesbaden",
+  "sector": "Software engineering",
+  "visa": true,
+  "offer": "Relocation assistance.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Mercura",
+  "city": "Munich",
+  "sector": "Solutions engineering",
+  "visa": true,
+  "offer": "Relocation support for your move to Munich.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "hexafarms",
+  "city": "Berlin",
+  "sector": "Agritech, robotics",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Perk",
+  "city": "Berlin",
+  "sector": "Sales, engineering",
+  "visa": true,
+  "offer": "Relocation for certain roles. English is the office language.",
+  "group": "Relocation support",
+  "ats": "ashby:Perk"
+ },
+ {
+  "name": "SAP Fioneer",
+  "city": "Munich / Walldorf / Berlin",
+  "sector": "Banking software, consulting, finance",
+  "visa": true,
+  "offer": "Relocation reimbursement.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "akeno",
+  "city": "Hamburg",
+  "sector": "Product, marketing, engineering",
+  "visa": true,
+  "offer": "Full relocation package with accommodation guidance.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Universal Quantum",
+  "city": "Hamburg",
+  "sector": "Quantum tech, engineering",
+  "visa": true,
+  "offer": "Relocation allowance.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "BeamNG",
+  "city": "Bremen",
+  "sector": "Gaming, simulation, marketing",
+  "visa": true,
+  "offer": "Relocation assistance if applicable.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Phlair",
+  "city": "Munich",
+  "sector": "Climate tech, engineering",
+  "visa": true,
+  "offer": "Relocation support to help you settle in.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "synvert",
+  "city": "Munich / Hamburg",
+  "sector": "Data & cloud consulting",
+  "visa": true,
+  "offer": "Relocation support.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "John Paul Construction",
+  "city": "Frankfurt",
+  "sector": "Engineering, planning, surveying",
+  "visa": true,
+  "offer": "Relocation allowance and EU living allowance.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "atlantic.vc ventures",
+  "city": "Dresden / Berlin",
+  "sector": "Legal, deep tech leadership",
+  "visa": true,
+  "offer": "Relocation support for the right person.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Crytek",
+  "city": "Frankfurt",
+  "sector": "Games, engineering, production",
+  "visa": true,
+  "offer": "Relocation budget and flights to Frankfurt for you and your family; some roles tagged visa sponsorship.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Zenjob",
+  "city": "Berlin",
+  "sector": "Staffing tech, engineering",
+  "visa": true,
+  "offer": "Relocation package: flight, moving money and language courses.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Movingimage",
+  "city": "Berlin",
+  "sector": "Video SaaS, customer success",
+  "visa": true,
+  "offer": "Relocation package to help you settle in.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Axel Springer",
+  "city": "Berlin",
+  "sector": "Media, tech",
+  "visa": true,
+  "offer": "Guidance on the admin side of relocation and visa.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Boeing",
+  "city": "Hamburg",
+  "sector": "Aerospace, engineering",
+  "visa": true,
+  "offer": "Some ads offer relocation and visa process support; others say no sponsorship.",
+  "group": "Relocation support",
+  "careers": "https://jobs.boeing.com",
+  "ats": "none"
+ },
+ {
+  "name": "Alteos",
+  "city": "Berlin",
+  "sector": "Insurtech",
+  "visa": true,
+  "offer": "On Relocate.me's list of visa/relocation-friendly employers.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "arculus",
+  "city": "Munich",
+  "sector": "Industrial automation, logistics",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "awork",
+  "city": "Hamburg",
+  "sector": "Software development",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Back Market",
+  "city": "Berlin",
+  "sector": "E-commerce, refurbished electronics",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Bigpoint",
+  "city": "Hamburg",
+  "sector": "Games",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Capmo",
+  "city": "Munich",
+  "sector": "Construction software",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "DeepSpin",
+  "city": "Berlin",
+  "sector": "Medical devices",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Ecosia",
+  "city": "Berlin",
+  "sector": "Search engine, social business",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "enmacc",
+  "city": "Munich",
+  "sector": "Energy trading software",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "epilot",
+  "city": "Cologne",
+  "sector": "Energy software",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Eurowings Digital",
+  "city": "Cologne",
+  "sector": "Airline IT",
+  "visa": true,
+  "offer": "Relocation package and visa/work permit help, depending on role.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Fashion Cloud",
+  "city": "Hamburg",
+  "sector": "B2B fashion retail tech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "FISHLABS (Deep Silver)",
+  "city": "Hamburg",
+  "sector": "Games",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "FlixBus / Flix",
+  "city": "Munich / Berlin",
+  "sector": "Mobility tech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Freeletics",
+  "city": "Munich",
+  "sector": "Fitness app, engineering",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "HAWK:AI",
+  "city": "Munich",
+  "sector": "Anti-money-laundering AI",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "HelloBetter",
+  "city": "Berlin / Hamburg",
+  "sector": "Digital mental health",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Highsnobiety",
+  "city": "Berlin",
+  "sector": "Fashion media, e-commerce",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Holoplot",
+  "city": "Berlin",
+  "sector": "Audio tech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "InnoGames",
+  "city": "Hamburg",
+  "sector": "Games",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "JUCR",
+  "city": "Berlin",
+  "sector": "EV charging",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "justDice",
+  "city": "Hamburg",
+  "sector": "Mobile games",
+  "visa": true,
+  "offer": "Dedicated relocation support: health insurance, housing, bank account and more.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Kaufland e-commerce",
+  "city": "Cologne",
+  "sector": "E-commerce marketplace",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Klarna",
+  "city": "Berlin",
+  "sector": "Fintech, payments",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Kolibri Games",
+  "city": "Berlin",
+  "sector": "Mobile games (Ubisoft)",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "lemon.markets",
+  "city": "Berlin",
+  "sector": "Fintech infrastructure",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Limehome",
+  "city": "Munich",
+  "sector": "Hospitality tech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Micropsi Industries",
+  "city": "Berlin",
+  "sector": "Robotics AI",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "MOIA",
+  "city": "Hamburg / Berlin",
+  "sector": "Mobility (Volkswagen)",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Mondu",
+  "city": "Berlin",
+  "sector": "B2B payments fintech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Oetker Digital",
+  "city": "Berlin",
+  "sector": "Food tech, digital",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Onefootball",
+  "city": "Berlin",
+  "sector": "Sports media tech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Project A Ventures",
+  "city": "Berlin",
+  "sector": "Venture capital, operations",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Secfix",
+  "city": "Munich",
+  "sector": "Security compliance software",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "SoundCloud",
+  "city": "Berlin",
+  "sector": "Music streaming, engineering",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Statista",
+  "city": "Hamburg",
+  "sector": "Data platform",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Superchat",
+  "city": "Berlin",
+  "sector": "Messaging software",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Taxfix",
+  "city": "Berlin",
+  "sector": "Tax tech",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "ToolTime",
+  "city": "Berlin",
+  "sector": "Software for tradespeople",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Verimi",
+  "city": "Berlin",
+  "sector": "Digital identity",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Vimcar",
+  "city": "Berlin",
+  "sector": "Fleet software",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Wooga",
+  "city": "Berlin",
+  "sector": "Mobile games",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "YAGER",
+  "city": "Berlin",
+  "sector": "Games",
+  "visa": true,
+  "offer": "On Relocate.me's list.",
+  "group": "Relocation support"
+ },
+ {
+  "name": "Zalando",
+  "city": "Berlin",
+  "sector": "Tech, product, marketing, data",
+  "visa": true,
+  "offer": "Hires internationally in English. Ask about Blue Card support.",
+  "group": "Big names",
+  "careers": "https://jobs.zalando.com",
+  "ats": "none"
+ },
+ {
+  "name": "Delivery Hero",
+  "city": "Berlin",
+  "sector": "Tech, product, finance, ops",
+  "visa": true,
+  "offer": "Relocation Hub: partners help with visas, embassy appointments and housing; buddy programme.",
+  "group": "Big names",
+  "ats": "smartrecruiters:DeliveryHero"
+ },
+ {
+  "name": "SAP",
+  "city": "Walldorf / Berlin / Munich",
+  "sector": "Software, consulting, sales",
+  "visa": true,
+  "offer": "Hires internationally in English. Ask about Blue Card support.",
+  "group": "Big names",
+  "careers": "https://jobs.sap.com",
+  "ats": "none"
+ },
+ {
+  "name": "Celonis",
+  "city": "Munich",
+  "sector": "Software, sales, customer success",
+  "visa": true,
+  "offer": "Hires internationally in English. Ask about Blue Card support.",
+  "group": "Big names",
+  "ats": "greenhouse:celonis"
+ },
+ {
+  "name": "Personio",
+  "city": "Munich / Berlin",
+  "sector": "HR software, sales, product",
+  "visa": true,
+  "offer": "Hires internationally in English. Ask about Blue Card support.",
+  "group": "Big names",
+  "ats": "personio:personio"
+ },
+ {
+  "name": "Amazon",
+  "city": "Berlin / Munich",
+  "sector": "Tech, operations, corporate",
+  "visa": true,
+  "offer": "Hires internationally in English. Ask about Blue Card support.",
+  "group": "Big names",
+  "careers": "https://www.amazon.jobs",
+  "ats": "none"
+ },
+ {
+  "name": "Google",
+  "city": "Munich / Berlin",
+  "sector": "Engineering, sales, marketing",
+  "visa": true,
+  "offer": "Hires internationally in English. Ask about Blue Card support.",
+  "group": "Big names",
+  "careers": "https://www.google.com/about/careers/applications/jobs/results/?location=Germany",
+  "ats": "none"
+ },
+ {
+  "name": "BASF",
+  "city": "Ludwigshafen",
+  "sector": "Chemicals, engineering, IT",
+  "visa": true,
+  "offer": "On Relocate.me's list of employers advertising visa/relocation help.",
+  "group": "Big names",
+  "careers": "https://www.basf.com/global/en/careers",
+  "ats": "none"
+ },
+ {
+  "name": "Flink",
+  "city": "Berlin",
+  "sector": "Grocery delivery, tech, ops",
+  "visa": true,
+  "offer": "Application form asks which relocation or visa support you need.",
+  "group": "Big names"
+ },
+ {
+  "name": "Max Planck Society",
+  "city": "Institutes nationwide",
+  "sector": "Research, PhD, postdoc, IT, admin",
+  "visa": true,
+  "offer": "International offices or welcome services at 60+ institutes help with visas and settling in.",
+  "group": "Research institutes",
+  "careers": "https://www.mpg.de/jobboard",
+  "ats": "none"
+ },
+ {
+  "name": "Helmholtz Munich",
+  "city": "Munich",
+  "sector": "Health research",
+  "visa": true,
+  "offer": "International Staff & Dual Career Services help with relocation, formalities and family.",
+  "group": "Research institutes",
+  "careers": "https://www.helmholtz-munich.de/en/career",
+  "ats": "none"
+ },
+ {
+  "name": "DESY",
+  "city": "Hamburg / Zeuthen",
+  "sector": "Physics research, engineering, IT",
+  "visa": true,
+  "offer": "International Office advises on visas and residence permits.",
+  "group": "Research institutes",
+  "careers": "https://www.desy.de/career",
+  "ats": "none"
+ },
+ {
+  "name": "European XFEL",
+  "city": "Schenefeld (Hamburg)",
+  "sector": "Physics research, engineering",
+  "visa": true,
+  "offer": "Guidance for non-EU hires on visas and work authorization.",
+  "group": "Research institutes",
+  "careers": "https://www.xfel.eu/careers",
+  "ats": "none"
+ },
+ {
+  "name": "Helios",
+  "city": "87 hospitals nationwide",
+  "sector": "Nursing",
+  "visa": true,
+  "offer": "Support through the whole recognition process; dedicated team for international nurses.",
+  "group": "Hospitals",
+  "careers": "https://www.helios-gesundheit.de/en/karriere/job-finden/nursing-professionals-from-abroad",
+  "ats": "none"
+ },
+ {
+  "name": "Asklepios",
+  "city": "Nationwide",
+  "sector": "Nursing",
+  "visa": true,
+  "offer": "Recognition support with a named contact; help with the fast-track skilled worker visa (§81a).",
+  "group": "Hospitals",
+  "careers": "https://www.asklepios.com/en/group/career/nursing",
+  "ats": "none"
+ },
+ {
+  "name": "Charité",
+  "city": "Berlin",
+  "sector": "Nursing",
+  "visa": true,
+  "offer": "Recruits nurses directly; employer pays the costs; immigration and recognition support.",
+  "group": "Hospitals",
+  "careers": "https://karriere.charite.de/international/recrutement",
+  "ats": "none"
+ },
+ {
+  "name": "Vivantes",
+  "city": "Berlin",
+  "sector": "Nursing, care",
+  "visa": true,
+  "offer": "International Recruiting department supports professionals from abroad.",
+  "group": "Hospitals",
+  "careers": "https://hauptstadtpflege.vivantes.de/en/recruiting-abroad",
+  "ats": "none"
+ },
+ {
+  "name": "Uniklinik Freiburg",
+  "city": "Freiburg",
+  "sector": "Nursing",
+  "visa": true,
+  "offer": "Recruiting nurses from abroad for 30+ years; integration and language support.",
+  "group": "Hospitals",
+  "careers": "https://www.uniklinik-freiburg.de",
+  "ats": "none"
+ },
+ {
+  "name": "Solaris",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Mambu",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Adjust",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Babbel",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Blinkist",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Omio",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Grover",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Enpal",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Forto",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Choco",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Ada Health",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Upvest",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Pliant",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Candis",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Smava",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Penta",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Kontist",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Vivid Money",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "CoachHub",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Lano",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "HeyJobs",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Rasa",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "deepset",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Langdock",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Knowunity",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Buena",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Tandem",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Feather",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Nelly",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Doctorly",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Thermondo",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Zolar",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Enter",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "MILES Mobility",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Dott",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Tourlane",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Momox",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Rebuy",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Everphone",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Ratepay",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Riverty",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Leapsome",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Spryker",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Circula",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Moss",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Idealo",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Kleinanzeigen",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Stripe",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups",
+  "ats": "greenhouse:stripe"
+ },
+ {
+  "name": "Miro",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups",
+  "ats": "greenhouse:realtimeboardglobal"
+ },
+ {
+  "name": "Databricks",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups",
+  "ats": "greenhouse:databricks"
+ },
+ {
+  "name": "Datadog",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Wefox",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Clue",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Ecoworks",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Bryter",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Merantix",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Aignostics",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Cognite",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Qdrant",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Kraken Technologies",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Plantix",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Signavio",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "ResearchGate",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Native Instruments",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Ableton",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Planet",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Workmotion",
+  "city": "Berlin",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Usercentrics",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Tacto",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Holidu",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Check24",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Westwing",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Mytheresa",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Unzer",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Agile Robots",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "RobCo",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Magazino",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Quantum Systems",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Proxima Fusion",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Tado",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Workpath",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Kaia Health",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Avi Medical",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Brainlab",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Smartclip",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Productsup",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Alasco",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Xentral",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Planradar",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Luminovo",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Reflex Aerospace",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Langfuse",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Cosuno",
+  "city": "Munich",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "1Komma5°",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Freenow",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Jimdo",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Taxdoo",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Kittl",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Goodgame Studios",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Cargoboard",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Ryte",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Hey Car",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Yokoy",
+  "city": "Hamburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "DeepL",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Gigs",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Buynomics",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "ESL FACEIT Group",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Pflegix",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Uberall",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Heyflow",
+  "city": "Cologne",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Cognigy",
+  "city": "Düsseldorf",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Finanzguru",
+  "city": "Frankfurt",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Neura Robotics",
+  "city": "Stuttgart",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Wandelbots",
+  "city": "Dresden",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Sunfire",
+  "city": "Dresden",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Cloud&Heat",
+  "city": "Dresden",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Staffbase",
+  "city": "Dresden",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Spreadgroup",
+  "city": "Leipzig",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Invia",
+  "city": "Leipzig",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "IONOS",
+  "city": "Karlsruhe",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Inovex",
+  "city": "Karlsruhe",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Black Forest Labs",
+  "city": "Freiburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Sevdesk",
+  "city": "Offenburg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ },
+ {
+  "name": "Dynatrace",
+  "city": "Nuremberg",
+  "sector": "",
+  "visa": false,
+  "offer": "",
+  "group": "More startups"
+ }
+]

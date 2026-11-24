@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Visa Jobs Map Germany</title>
+<meta name="description" content="Open roles in Germany at companies that offer visa or relocation support, on a map. Filter by city and experience level, apply on the company's own site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--g:#00463c;--g2:#e6f5c8;--coral:#ff6f59;--bg:#f6f8f7;--card:#fff;--ink:#10201c;--mut:#5a6b66;--line:#dfe6e3;--chip:#eef3f1}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1412;--card:#131d1a;--ink:#e7efe9;--mut:#9fb1ab;--line:#24332f;--chip:#1a2724}}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;display:flex;flex-direction:column}
+a{color:inherit}
+header{background:var(--g);color:#fff;padding:14px clamp(12px,3vw,28px) 12px}
+.top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.brand{font:700 20px "Inter Tight",sans-serif;white-space:nowrap}
+.stats{color:var(--g2);font-size:13px;flex:1}
+.search{flex:1 1 280px;max-width:460px;height:42px;border-radius:10px;border:0;padding:0 14px;font:inherit;font-size:16px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+select{height:40px;border-radius:10px;border:0;padding:0 10px;font:inherit;font-size:15px;background:#fff;color:#10201c;max-width:240px}
+.seg{display:flex;background:rgba(255,255,255,.13);border-radius:10px;padding:3px;flex-wrap:wrap}
+.seg button{border:0;background:none;color:#fff;padding:7px 11px;border-radius:8px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed=true]{background:var(--g2);color:var(--g);font-weight:600}
+.tog{display:flex;align-items:center;gap:6px;font-size:14px;color:#fff;cursor:pointer;white-space:nowrap}
+.tog input{width:18px;height:18px;accent-color:var(--coral)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px clamp(12px,3vw,28px);background:var(--card);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+.chip b{font-weight:600}.chip[aria-pressed=true]{background:var(--g);color:#fff;border-color:var(--g)}
+main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr);min-height:0}
+#listWrap{overflow-y:auto;padding:14px;border-right:1px solid var(--line)}
+#map{height:100%;min-height:420px}
+.sum{font-size:13px;color:var(--mut);margin:0 2px 10px}
+.co{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.co.hi{outline:2px solid var(--coral)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.name{font:700 16px/1.3 "Inter Tight",sans-serif;margin:0}
+.n{font:700 22px/1 "Inter Tight",sans-serif;color:var(--g);text-align:right;white-space:nowrap}
+@media(prefers-color-scheme:dark){.n{color:#b9e88a}}
+.n small{display:block;font:500 11px Inter;color:var(--mut)}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--g2);color:var(--g);margin:4px 4px 0 0}
+.badge.vm{background:#ffe2dc;color:#8a2b1c}
+.meta{font-size:13px;color:var(--mut);margin-top:3px}
+.offer{font-size:13px;margin:6px 0 0}
+.acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:9px;padding:7px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.p{background:var(--g);border-color:var(--g);color:#fff}
+.jobs{list-style:none;margin:10px 0 0;padding:0}
+.jobs li{border-top:1px solid var(--line);padding:8px 0;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.jobs .t{font-weight:500}.jobs .s{font-size:12px;color:var(--mut)}
+.apply{flex:none;font-size:13px;font-weight:600;color:var(--g);text-decoration:none;border:1px solid var(--g);border-radius:8px;padding:5px 10px}
+@media(prefers-color-scheme:dark){.apply{color:#b9e88a;border-color:#b9e88a}}
+.more{width:100%;margin:6px 0 20px}
+.empty{padding:30px 10px;text-align:center;color:var(--mut)}
+.tabs{display:none}
+.leaflet-popup-content{font:14px/1.4 Inter,sans-serif;margin:12px 14px}
+.leaflet-popup-content b{font-family:"Inter Tight",sans-serif;font-size:15px}
+.pop button{margin-top:8px;border:0;background:#00463c;color:#fff;border-radius:8px;padding:6px 10px;font:600 13px Inter;cursor:pointer}
+.legend{background:var(--card);color:var(--ink);padding:8px 10px;border-radius:10px;font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+footer{font-size:12px;color:var(--mut);padding:8px clamp(12px,3vw,28px);border-top:1px solid var(--line);background:var(--card)}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+@media(max-width:860px){
+  main{grid-template-columns:minmax(0,1fr)}
+  .tabs{display:flex;gap:6px;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--line)}
+  .tabs button{flex:1;height:38px}
+  body[data-view=list] #mapWrap{display:none} body[data-view=map] #listWrap{display:none}
+  html,body{height:auto}body{display:block}.stats{flex-basis:100%;order:3;font-size:12px}
+  #listWrap{border:0;overflow:visible}#map{height:72vh}
+}
+</style>
+</head>
+<body data-view="list">
+<header>
+  <div class="top">
+    <div class="brand">Visa Jobs Map · Germany</div>
+    <div class="stats" id="stats">Loading jobs…</div>
+    <input class="search" id="q" type="search" placeholder="Search roles, skills or companies" aria-label="Search roles, skills or companies">
+  </div>
+  <div class="filters">
+    <select id="city" aria-label="City"><option value="">All of Germany</option></select>
+    <div class="seg" id="lvl" role="group" aria-label="Experience level">
+      <button type="button" data-v="all" aria-pressed="true">All levels</button>
+      <button type="button" data-v="entry" aria-pressed="false">Entry-level</button>
+      <button type="button" data-v="intern" aria-pressed="false">Internships &amp; students</button>
+      <button type="button" data-v="exp" aria-pressed="false">Experienced</button>
+    </div>
+    <label class="tog"><input type="checkbox" id="visa"> Visa-friendly companies only</label>
+    <label class="tog"><input type="checkbox" id="vm"> Job ad mentions visa / relocation</label>
+  </div>
+</header>
+<nav class="chips" id="chips" aria-label="Cities"></nav>
+<div class="tabs"><button class="btn p" data-t="list" type="button">List</button><button class="btn" data-t="map" type="button">Map</button></div>
+<main>
+  <section id="listWrap" aria-label="Companies"><p class="sum" id="sum"></p><div id="list"></div></section>
+  <section id="mapWrap"><div id="map"></div></section>
+</main>
+<footer>Roles come from each company's own careers page and link back to it, updated daily. Pins show the city, not the exact office. "Visa-friendly" means the company has advertised visa or relocation support; always confirm in the job ad.</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+{
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safe = u => /^https:\/\//.test(u || '') ? u : '';
+const LV = {entry:'Entry-level', intern:'Internship / student', mid:'Mid-level', senior:'Senior'};
+const st = {city:'', lvl:'all', q:'', visa:false, vm:false, open:null, shown:40};
+let DATA = null, map, layer, cityCount = {};
+
+// URL <-> state
+function readUrl() {
+  const p = new URLSearchParams(location.search);
+  st.city = p.get('city') || ''; st.lvl = p.get('level') || 'all'; st.q = p.get('q') || '';
+  st.visa = p.get('visa') === '1'; st.vm = p.get('mentions') === '1';
+}
+function writeUrl() {
+  const p = new URLSearchParams();
+  if (st.city) p.set('city', st.city); if (st.lvl !== 'all') p.set('level', st.lvl); if (st.q) p.set('q', st.q);
+  if (st.visa) p.set('visa', '1'); if (st.vm) p.set('mentions', '1');
+  history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+}
+
+const lvOk = j => st.lvl === 'all' || (st.lvl === 'exp' ? (j.lv === 'mid' || j.lv === 'senior') : j.lv === st.lvl);
+function match(j, ignoreCity) {
+  const c = DATA.companies[j.c];
+  if (st.visa && !c.visa) return false;
+  if (st.vm && !j.vm) return false;
+  if (!lvOk(j)) return false;
+  if (!ignoreCity && st.city && !j.cities.includes(st.city)) return false;
+  if (st.q) { const q = st.q.toLowerCase(); if (!(j.t + ' ' + j.dept + ' ' + c.name).toLowerCase().includes(q)) return false; }
+  return true;
+}
+
+function renderControls() {
+  $('q').value = st.q; $('visa').checked = st.visa; $('vm').checked = st.vm;
+  document.querySelectorAll('#lvl button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.lvl));
+  cityCount = {};
+  DATA.jobs.forEach(j => { if (match(j, true)) j.cities.forEach(c => cityCount[c] = (cityCount[c] || 0) + 1); });
+  const cities = Object.keys(cityCount).sort((a, b) => cityCount[b] - cityCount[a]);
+  const total = DATA.jobs.filter(j => match(j, true)).length;
+  $('chips').innerHTML = `<button class="chip" data-c="" aria-pressed="${!st.city}">All Germany <b>${total.toLocaleString()}</b></button>` +
+    cities.map(c => `<button class="chip" data-c="${esc(c)}" aria-pressed="${st.city === c}">${esc(c)} <b>${cityCount[c].toLocaleString()}</b></button>`).join('');
+  const sel = $('city'); const all = Object.keys(DATA.cities).concat(['Germany (remote/other)']);
+  sel.innerHTML = '<option value="">All of Germany</option>' + all.filter(c => cityCount[c] || c === st.city).sort().map(c => `<option value="${esc(c)}">${esc(c)} (${cityCount[c] || 0})</option>`).join('');
+  sel.value = st.city;
+}
+
+function groups() {
+  const by = new Map();
+  DATA.jobs.forEach(j => { if (match(j)) { if (!by.has(j.c)) by.set(j.c, []); by.get(j.c).push(j); } });
+  return [...by.entries()].sort((a, b) => (DATA.companies[b[0]].visa - DATA.companies[a[0]].visa) || b[1].length - a[1].length);
+}
+
+function card(ci, js) {
+  const c = DATA.companies[ci];
+  const cnt = k => js.filter(j => j.lv === k).length;
+  const open = st.open === ci;
+  const shownJobs = open ? js : [];
+  return `<article class="co${open ? ' hi' : ''}" id="co-${ci}">
+    <div class="row"><div><h3 class="name">${esc(c.name)}</h3>
+      <div>${c.visa ? '<span class="badge">Visa / relocation support</span>' : ''}${js.some(j => j.vm) ? `<span class="badge vm">${js.filter(j => j.vm).length} ads mention visa</span>` : ''}</div>
+      <div class="meta">${esc(c.hq)}${c.sector ? ' · ' + esc(c.sector) : ''}</div></div>
+      <div class="n">${js.length}<small>open roles</small></div></div>
+    ${c.offer ? `<p class="offer">${esc(c.offer)}</p>` : ''}
+    <div class="meta">${cnt('entry')} entry-level · ${cnt('intern')} internship/student · ${cnt('mid') + cnt('senior')} experienced</div>
+    <div class="acts"><button class="btn p" data-open="${ci}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
+      ${safe(c.careers) ? `<a class="btn" href="${esc(c.careers)}" target="_blank" rel="noopener">Careers page ↗</a>` : ''}
+      ${c.pins.length ? `<button class="btn" data-fly="${ci}" type="button">Show on map</button>` : ''}</div>
+    ${open ? `<ul class="jobs">${shownJobs.map(j => `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div></div>${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</li>`).join('')}</ul>` : ''}
+  </article>`;
+}
+
+function renderList() {
+  const g = groups();
+  const roles = g.reduce((s, x) => s + x[1].length, 0);
+  $('sum').textContent = `${roles.toLocaleString()} roles at ${g.length.toLocaleString()} companies${st.city ? ' in ' + st.city : ' in Germany'}`;
+  if (!g.length) { $('list').innerHTML = '<div class="empty">No roles match these filters. Try another city or level, or clear the search.</div>'; return g; }
+  $('list').innerHTML = g.slice(0, st.shown).map(([ci, js]) => card(ci, js)).join('') +
+    (g.length > st.shown ? `<button class="btn more" id="more" type="button">Show more companies (${g.length - st.shown} left)</button>` : '');
+  return g;
+}
+
+function renderMap(g) {
+  if (!map) return;
+  layer.clearLayers();
+  const max = Math.max(1, ...g.map(([, js]) => js.length));
+  g.forEach(([ci, js]) => {
+    const c = DATA.companies[ci];
+    c.pins.forEach(([city, lat, lng]) => {
+      if (st.city && city !== st.city) return;
+      const n = js.filter(j => j.cities.includes(city)).length; if (!n) return;
+      const m = L.circleMarker([lat, lng], {radius: 5 + 13 * Math.sqrt(n / max), color: '#fff', weight: 1.5, fillOpacity: .85, fillColor: c.visa ? '#00463c' : '#6b7c77'});
+      const div = document.createElement('div'); div.className = 'pop';
+      const b = document.createElement('b'); b.textContent = c.name; div.append(b);
+      const p = document.createElement('div'); p.textContent = `${n} open role${n > 1 ? 's' : ''} in ${city}${c.visa ? ' · visa/relocation support' : ''}`; div.append(p);
+      const btn = document.createElement('button'); btn.textContent = 'View roles'; btn.onclick = () => openCo(ci, true); div.append(btn);
+      m.bindPopup(div); m.bindTooltip(`${c.name} · ${n}`); layer.addLayer(m);
+    });
+  });
+}
+
+function render(fly) {
+  renderControls(); const g = renderList(); renderMap(g); writeUrl();
+  if (fly && map) { const p = DATA.cities[st.city]; p ? map.flyTo(p, 11, {duration: .6}) : map.flyTo([51.2, 10.4], 6, {duration: .6}); }
+}
+
+function openCo(ci, scroll) {
+  st.open = st.open === ci && !scroll ? null : ci;
+  const g = groups(); const idx = g.findIndex(x => x[0] === ci);
+  if (idx >= st.shown) st.shown = idx + 10;
+  renderList();
+  if (scroll) { document.body.dataset.view = 'list'; tabs(); $('co-' + ci)?.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+}
+
+function tabs() { document.querySelectorAll('.tabs button').forEach(b => b.className = 'btn' + (b.dataset.t === document.body.dataset.view ? ' p' : '')); if (map) setTimeout(() => map.invalidateSize(), 50); }
+
+function initMap() {
+  if (!window.L) return;
+  map = L.map('map', {zoomControl: true}).setView([51.2, 10.4], 6);
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png`, {
+    maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+  layer = L.layerGroup().addTo(map);
+  const lg = L.control({position: 'bottomleft'});
+  lg.onAdd = () => { const d = L.DomUtil.create('div', 'legend'); d.innerHTML = '<span class="dot" style="background:#00463c"></span>Visa / relocation support<br><span class="dot" style="background:#6b7c77"></span>Other companies'; return d; };
+  lg.addTo(map);
+}
+
+// events
+$('q').addEventListener('input', (() => { let t; return () => { clearTimeout(t); t = setTimeout(() => { st.q = $('q').value.trim(); st.shown = 40; render(); }, 250); }; })());
+$('city').addEventListener('change', () => { st.city = $('city').value; st.shown = 40; render(true); });
+$('chips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { st.city = b.dataset.c; st.shown = 40; render(true); } });
+document.querySelectorAll('#lvl button').forEach(b => b.addEventListener('click', () => { st.lvl = b.dataset.v; st.shown = 40; render(); }));
+$('visa').addEventListener('change', () => { st.visa = $('visa').checked; render(); });
+$('vm').addEventListener('change', () => { st.vm = $('vm').checked; render(); });
+$('list').addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) return openCo(+o.dataset.open, false);
+  const f = e.target.closest('[data-fly]'); if (f && map) { const c = DATA.companies[+f.dataset.fly]; const p = c.pins.find(x => !st.city || x[0] === st.city) || c.pins[0]; document.body.dataset.view = 'map'; tabs(); map.flyTo([p[1], p[2]], 12); }
+  if (e.target.id === 'more') { st.shown += 40; renderList(); }
+});
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => { document.body.dataset.view = b.dataset.t; tabs(); }));
+
+readUrl();
+initMap();
+fetch('data/jobs.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
+  DATA = d;
+  const visaCos = new Set(d.jobs.map(j => j.c).filter(c => d.companies[c].visa)).size;
+  $('stats').textContent = d.jobs.length
+    ? `${d.jobs.length.toLocaleString()} roles · ${new Set(d.jobs.map(j => j.c)).size} companies hiring · ${visaCos} with visa/relocation support · updated ${d.updated}`
+    : 'No jobs yet. Run the "Update jobs" action on GitHub once (see README).';
+  render(!!st.city);
+}).catch(() => { $('stats').textContent = 'Could not load data/jobs.json. Open the site through GitHub Pages or a local server, not as a file.'; });
+}
+</script>
+</body>
+</html>

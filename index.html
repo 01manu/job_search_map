@@ -42,6 +42,7 @@ main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr)
 @media(prefers-color-scheme:dark){.n{color:#b9e88a}}
 .n small{display:block;font:500 11px Inter;color:var(--mut)}
 .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--g2);color:var(--g);margin:4px 4px 0 0}
+.badge.en{background:#dbeafe;color:#1e3a8a}.badge.de{background:#eceff1;color:#455a64}
 .badge.vm{background:#ffe2dc;color:#8a2b1c}
 .meta{font-size:13px;color:var(--mut);margin-top:3px}
 .offer{font-size:13px;margin:6px 0 0}
@@ -88,6 +89,7 @@ footer{font-size:12px;color:var(--mut);padding:8px clamp(12px,3vw,28px);border-t
       <button type="button" data-v="intern" aria-pressed="false">Internships &amp; students</button>
       <button type="button" data-v="exp" aria-pressed="false">Experienced</button>
     </div>
+    <label class="tog"><input type="checkbox" id="en"> English-only jobs (no German needed)</label>
     <label class="tog"><input type="checkbox" id="visa"> Visa-friendly companies only</label>
     <label class="tog"><input type="checkbox" id="vm"> Job ad mentions visa / relocation</label>
   </div>
@@ -106,19 +108,19 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safe = u => /^https:\/\//.test(u || '') ? u : '';
 const LV = {entry:'Entry-level', intern:'Internship / student', mid:'Mid-level', senior:'Senior'};
-const st = {city:'', lvl:'all', q:'', visa:false, vm:false, open:null, shown:40};
+const st = {city:'', lvl:'all', q:'', en:false, visa:false, vm:false, open:null, shown:40};
 let DATA = null, map, layer, cityCount = {};
 
 // URL <-> state
 function readUrl() {
   const p = new URLSearchParams(location.search);
   st.city = p.get('city') || ''; st.lvl = p.get('level') || 'all'; st.q = p.get('q') || '';
-  st.visa = p.get('visa') === '1'; st.vm = p.get('mentions') === '1';
+  st.en = p.get('english') === '1'; st.visa = p.get('visa') === '1'; st.vm = p.get('mentions') === '1';
 }
 function writeUrl() {
   const p = new URLSearchParams();
   if (st.city) p.set('city', st.city); if (st.lvl !== 'all') p.set('level', st.lvl); if (st.q) p.set('q', st.q);
-  if (st.visa) p.set('visa', '1'); if (st.vm) p.set('mentions', '1');
+  if (st.en) p.set('english', '1'); if (st.visa) p.set('visa', '1'); if (st.vm) p.set('mentions', '1');
   history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
 }
 
@@ -127,6 +129,7 @@ function match(j, ignoreCity) {
   const c = DATA.companies[j.c];
   if (st.visa && !c.visa) return false;
   if (st.vm && !j.vm) return false;
+  if (st.en && j.lang !== 'en') return false;
   if (!lvOk(j)) return false;
   if (!ignoreCity && st.city && !j.cities.includes(st.city)) return false;
   if (st.q) { const q = st.q.toLowerCase(); if (!(j.t + ' ' + j.dept + ' ' + c.name).toLowerCase().includes(q)) return false; }
@@ -134,7 +137,7 @@ function match(j, ignoreCity) {
 }
 
 function renderControls() {
-  $('q').value = st.q; $('visa').checked = st.visa; $('vm').checked = st.vm;
+  $('q').value = st.q; $('en').checked = st.en; $('visa').checked = st.visa; $('vm').checked = st.vm;
   document.querySelectorAll('#lvl button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.lvl));
   cityCount = {};
   DATA.jobs.forEach(j => { if (match(j, true)) j.cities.forEach(c => cityCount[c] = (cityCount[c] || 0) + 1); });
@@ -164,11 +167,11 @@ function card(ci, js) {
       <div class="meta">${esc(c.hq)}${c.sector ? ' · ' + esc(c.sector) : ''}</div></div>
       <div class="n">${js.length}<small>open roles</small></div></div>
     ${c.offer ? `<p class="offer">${esc(c.offer)}</p>` : ''}
-    <div class="meta">${cnt('entry')} entry-level · ${cnt('intern')} internship/student · ${cnt('mid') + cnt('senior')} experienced</div>
+    <div class="meta">${js.filter(j => j.lang === 'en').length} English-only · ${cnt('entry')} entry-level · ${cnt('intern')} internship/student · ${cnt('mid') + cnt('senior')} experienced</div>
     <div class="acts"><button class="btn p" data-open="${ci}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
       ${safe(c.careers) ? `<a class="btn" href="${esc(c.careers)}" target="_blank" rel="noopener">Careers page ↗</a>` : ''}
       ${c.pins.length ? `<button class="btn" data-fly="${ci}" type="button">Show on map</button>` : ''}</div>
-    ${open ? `<ul class="jobs">${shownJobs.map(j => `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div></div>${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</li>`).join('')}</ul>` : ''}
+    ${open ? `<ul class="jobs">${shownJobs.map(j => `<li><div><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div>${j.lang === 'en' ? '<span class="badge en">English only</span>' : j.lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div></div>${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</li>`).join('')}</ul>` : ''}
   </article>`;
 }
 
@@ -234,6 +237,7 @@ $('city').addEventListener('change', () => { st.city = $('city').value; st.shown
 $('chips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { st.city = b.dataset.c; st.shown = 40; render(true); } });
 document.querySelectorAll('#lvl button').forEach(b => b.addEventListener('click', () => { st.lvl = b.dataset.v; st.shown = 40; render(); }));
 $('visa').addEventListener('change', () => { st.visa = $('visa').checked; render(); });
+$('en').addEventListener('change', () => { st.en = $('en').checked; st.shown = 40; render(); });
 $('vm').addEventListener('change', () => { st.vm = $('vm').checked; render(); });
 $('list').addEventListener('click', e => {
   const o = e.target.closest('[data-open]'); if (o) return openCo(+o.dataset.open, false);

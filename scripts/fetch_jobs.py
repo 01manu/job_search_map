@@ -95,6 +95,34 @@ def level(title, hint=""):
     return "mid"
 
 VISA = re.compile(r"\b(visa|blue card|work permit|relocation|relocate|relocating|umzug)\b", re.I)
+# ---------------------------------------------------------------- language
+# German counts as "required" when the ad asks for it, unless the same phrase says it's only a plus.
+DE_REQ = re.compile(
+    r"(fluent|fluency|business[- ]fluent|native|excellent|very good|strong|good|proficien\w*|professional|full)\W+(?:\w+\W+){0,3}?(german|deutsch)"
+    r"|(german|deutsch)\W*(language\W*)?(skills?\W*)?(\(|:|-)?\W*(c1|c2|b2|native|fluent|mother tongue|muttersprach\w*)"
+    r"|german\W+(is\W+)?(required|mandatory|a must|essential)"
+    r"|(german|deutsch)\w*\W+(?:\w+\W+){0,2}?(speaking|speaker)"
+    r"|(sehr gute|gute|fließende|fliessende|verhandlungssichere|exzellente)\W+(?:\w+\W+){0,2}?deutsch\w*"
+    r"|deutsch\w*\W+(?:\w+\W+){0,2}?(in wort und schrift|fließend|fliessend|verhandlungssicher)", re.I)
+DE_SOFT = re.compile(r"(plus|nice[- ]to[- ]have|advantage|advantageous|bonus|not required|not a must|no german|not necessary|optional|helpful|beneficial|desirable|preferred|asset|von vorteil|wünschenswert|wuenschenswert|willingness to learn|learn german|german classes|german courses|language course)", re.I)
+DE_WORDS = re.compile(r"\b(und|der|die|das|mit|für|fuer|wir|sie|ihre|unser|unsere|sowie|eine|einen|bei|deine|dich|bist|kenntnisse|aufgaben)\b", re.I)
+EN_WORDS = re.compile(r"\b(and|the|with|for|we|you|our|your|are|will|team|experience|skills)\b", re.I)
+GERMAN_TITLE = re.compile(r"(\(m/w/d\)|\(w/m/d\)|\(m/w/x\)|mitarbeiter|sachbearbeiter|kaufmann|kauffrau|fachkraft|leiter|referent|werkstudent|praktikant|ausbildung|berater|entwickler|ingenieur|vertrieb|buchhalter|pflege)", re.I)
+
+def language(title, text):
+    """'en' = English ad with no German requirement, 'de' = German required or ad written in German, '' = unknown."""
+    t = text or ""
+    for m in DE_REQ.finditer(t):
+        window = t[max(0, m.start() - 80): m.end() + 80]
+        if not DE_SOFT.search(window):
+            return "de"
+    de, en = len(DE_WORDS.findall(t)), len(EN_WORDS.findall(t))
+    if de + en >= 6:
+        return "de" if de > en else "en"
+    if GERMAN_TITLE.search(title or ""):
+        return "de"
+    return ""
+
 def strip_html(s):
     return re.sub(r"<[^>]+>", " ", html.unescape(html.unescape(s or "")))
 
@@ -193,6 +221,13 @@ def smartrecruiters(slug):
                             date=(j.get("releasedDate") or "")[:10], text="", lvl_hint=(j.get("experienceLevel") or {}).get("id", "")))
         offset += 100
         if offset >= d.get("totalFound", 0) or offset > 1000: break
+    def detail(j):
+        pid = j["url"].rsplit("/", 1)[-1]
+        x = get(f"https://api.smartrecruiters.com/v1/companies/{slug}/postings/{pid}")
+        secs = ((x or {}).get("jobAd") or {}).get("sections") or {}
+        j["text"] = " ".join(strip_html((v or {}).get("text", "")) for v in secs.values() if isinstance(v, dict))
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        list(pool.map(detail, out[:300]))
     return out if out or d.get("totalFound") == 0 else None
 
 ADAPTERS = {"greenhouse": greenhouse, "lever": lever, "ashby": ashby, "personio": personio, "recruitee": recruitee, "smartrecruiters": smartrecruiters}
@@ -286,7 +321,8 @@ def main():
             if not url.startswith("https://"): url = careers
             jobs.append({"c": ci, "t": j["title"].strip(), "cities": jc, "loc": j["location"][:120], "url": url,
                          "lv": level(j["title"], j.get("lvl_hint", "")), "dept": (j.get("dept") or "")[:60],
-                         "date": j.get("date", ""), "vm": bool(VISA.search(j.get("text") or ""))})
+                         "date": j.get("date", ""), "vm": bool(VISA.search(j.get("text") or "")),
+                         "lang": language(j["title"], j.get("text") or "")})
             for city in jc: cities[city] = cities.get(city, 0) + 1
         if raw: found += 1
         pins = []

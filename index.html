@@ -49,6 +49,7 @@ main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr)
 @media(prefers-color-scheme:dark){.n{color:#b9e88a}}
 .n small{display:block;font:500 11px Inter;color:var(--mut)}
 .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--g2);color:var(--g);margin:4px 4px 0 0}
+.badge.src{background:var(--chip);color:var(--mut);border:1px solid var(--line)}
 .badge.vm{background:#ffe2dc;color:#8a2b1c}.badge.en{background:#dbeafe;color:#1e3a8a}.badge.de{background:#eceff1;color:#455a64}
 .meta{font-size:13px;color:var(--mut);margin-top:3px}
 .offer{font-size:13px;margin:6px 0 0}
@@ -88,7 +89,7 @@ footer{font-size:12px;color:var(--mut);padding:8px clamp(12px,3vw,28px);border-t
     <div class="brand">Visa Jobs Map · Germany</div>
     <div class="modes" role="group" aria-label="What to search">
       <button type="button" data-m="live" aria-pressed="true">All employers in Germany</button>
-      <button type="button" data-m="list" aria-pressed="false">Visa &amp; startup list</button>
+      <button type="button" data-m="list" aria-pressed="false">Careers pages &amp; Arbeitnow</button>
     </div>
     <div class="stats" id="stats"></div>
   </div>
@@ -182,9 +183,9 @@ function syncControls() {
   document.querySelectorAll('#lvl button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.lvl));
   $('q').value = st.q; $('en').checked = st.en; $('visa').checked = st.visa; $('vm').checked = st.vm;
   $('where').value = st.where; $('radius').value = st.radius; $('noag').checked = st.noag;
-  $('foot').textContent = st.mode === 'live'
-    ? 'Live data from the job search of the Bundesagentur für Arbeit (Federal Employment Agency), which lists most job ads in Germany. Company counts use the agency\'s numbers. "English-only" reads job titles, then the full ad when you open a company. "Visa-friendly" marks employers on our list that advertise visa or relocation support: always confirm in the ad.'
-    : 'Roles come from each company\'s own careers page and link back to it, updated daily. Pins show the city, not the exact office. "Visa-friendly" means the company has advertised visa or relocation support; always confirm in the job ad.';
+  $('foot').innerHTML = (st.mode === 'live'
+    ? 'Jobs from the Federal Employment Agency (live), company careers pages and <a href="https://www.arbeitnow.com" target="_blank" rel="noopener">Arbeitnow</a> (daily), merged by employer. "English-only" reads job titles and ad texts. "Visa-friendly" marks employers that advertise visa or relocation support: always confirm in the ad.'
+    : 'Jobs from company careers pages and <a href="https://www.arbeitnow.com" target="_blank" rel="noopener">Arbeitnow</a>, updated daily. Pins show the city, not the exact office. "Visa-friendly" means the company has advertised visa or relocation support; always confirm in the job ad.');
 }
 
 // ---------- map
@@ -211,8 +212,11 @@ function tabs() { document.querySelectorAll('.tabs button').forEach(b => b.class
 function showCard(id) { document.body.dataset.view = 'list'; tabs(); $(id)?.scrollIntoView({behavior: 'smooth', block: 'start'}); }
 
 // =====================================================================  LIVE MODE
-const live = {total: 0, facet: [], jobs: [], pages: 0, loading: false, err: '', emp: {}, details: {}, key: ''};
+// Merges three sources for the searched place: the Federal Employment Agency (live),
+// plus the daily robot's jobs from company careers pages and Arbeitnow (data/jobs.json).
+const live = {total: 0, facet: [], jobs: [], pages: 0, loading: false, err: '', emp: {}, details: {}, key: '', center: null};
 const LVL_PARAMS = {all: {}, entry: {angebotsart: '1', quereinstieg: 'true'}, intern: {angebotsart: '34'}, exp: {angebotsart: '1', quereinstieg: 'false'}};
+const SRC = {ba: 'Arbeitsagentur', careers: 'Careers page', arbeitnow: 'Arbeitnow'};
 function liveParams(extra) {
   const wo = DE_NAME[st.where] || st.where;
   const p = new URLSearchParams({wo, umkreis: st.radius, ...LVL_PARAMS[st.lvl], ...extra});
@@ -225,120 +229,156 @@ async function api(path, params) {
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
 }
-function placeOf(j) { const a = (j.stellenlokationen || [])[0]?.adresse || {}; return a.ort || ''; }
 function slim(j) {
-  const loc = (j.stellenlokationen || [])[0] || {};
-  return {t: j.stellenangebotsTitel || j.titel || '', co: j.firma || j.arbeitgeber || 'Unknown employer', ref: j.referenznummer || j.refnr || '',
-          place: placeOf(j), lat: loc.breite, lng: loc.laenge, date: j.datumErsteVeroeffentlichung || j.aktuelleVeroeffentlichungsdatum || '',
-          ho: !!j.homeofficemoeglich, lang: titleLang(j.stellenangebotsTitel || ''), lv: levelOf(j.stellenangebotsTitel || '')};
+  const loc = (j.stellenlokationen || [])[0] || {}; const t = j.stellenangebotsTitel || j.titel || '';
+  return {t, co: j.firma || j.arbeitgeber || 'Unknown employer', ref: j.referenznummer || j.refnr || '', place: loc.adresse?.ort || '',
+          lat: loc.breite, lng: loc.laenge, date: j.datumErsteVeroeffentlichung || '', ho: !!j.homeofficemoeglich,
+          lang: titleLang(t), lv: levelOf(t), src: 'ba'};
 }
+let fitLive = false;
 async function liveSearch() {
   if (!API) { live.err = 'setup'; renderLive(); return; }
   const key = liveParams({}).toString();
-  live.key = key; live.loading = true; live.err = ''; live.jobs = []; live.facet = []; live.pages = 0; live.emp = {}; st.open = null; st.shown = 40;
+  Object.assign(live, {key, loading: true, err: '', jobs: [], facet: [], pages: 0, emp: {}, total: 0, center: null}); st.open = null; st.shown = 40;
   renderLive();
   try {
     const d = await api('jobs', liveParams({size: '500', page: '1'}));
     if (live.key !== key) return;
     live.total = d.maxErgebnisse || 0;
+    const c = d.woOutput?.koordinaten?.[0]; live.center = c ? [c.lat, c.lon] : null;
     live.facet = Object.entries(d.facetten?.arbeitgeber?.counts || {}).sort((a, b) => b[1] - a[1]);
-    live.jobs = (d.ergebnisliste || d.stellenangebote || []).map(slim); live.pages = 1;
+    live.jobs = (d.ergebnisliste || []).map(slim); live.pages = 1;
+    if (!live.center && live.jobs.find(j => j.lat)) { const j = live.jobs.find(j => j.lat); live.center = [j.lat, j.lng]; }
     if (st.en && live.total > 500) await loadMore(3);
     fitLive = true;
   } catch (e) { live.err = 'Could not reach the job search right now (' + e.message + '). Try again in a minute.'; }
   live.loading = false; renderLive();
 }
-let fitLive = false;
 async function loadMore(n = 1) {
   const key = live.key;
   for (let i = 0; i < n && live.pages < 20 && live.jobs.length < live.total; i++) {
     const d = await api('jobs', liveParams({size: '500', page: String(live.pages + 1)}));
     if (live.key !== key) return;
-    live.jobs = live.jobs.concat((d.ergebnisliste || d.stellenangebote || []).map(slim)); live.pages++;
+    live.jobs = live.jobs.concat((d.ergebnisliste || []).map(slim)); live.pages++;
   }
 }
+const km = (a, b) => { const r = Math.PI / 180, x = (b[1] - a[1]) * r * Math.cos((a[0] + b[0]) / 2 * r), y = (b[0] - a[0]) * r; return Math.sqrt(x * x + y * y) * 6371; };
+// daily jobs (careers pages + Arbeitnow) near the searched place, with the same filters
+function dailyNear() {
+  if (!DATA || !live.center) return [];
+  const R = +st.radius + 10, q = st.q.toLowerCase();
+  return DATA.jobs.filter(j => {
+    const c = DATA.companies[j.c];
+    if (!j.cities.some(city => DATA.cities[city] && km(live.center, DATA.cities[city]) <= R)) return false;
+    if (st.lvl !== 'all' && !(st.lvl === 'exp' ? (j.lv === 'mid' || j.lv === 'senior') : j.lv === st.lvl)) return false;
+    if (st.en && j.lang !== 'en') return false;
+    if (q && !(j.t + ' ' + j.dept + ' ' + c.name).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
 function liveGroups() {
-  // employer -> {count (agency's exact number when known), jobs loaded}
   const by = new Map();
-  const jobs = live.jobs.filter(j => !st.en || j.lang === 'en');
-  jobs.forEach(j => { if (!by.has(j.co)) by.set(j.co, {name: j.co, jobs: [], count: 0}); by.get(j.co).jobs.push(j); });
-  if (!st.en) live.facet.forEach(([name, n]) => { if (!by.has(name)) by.set(name, {name, jobs: [], count: 0}); by.get(name).count = n; });
-  let g = [...by.values()].map(x => ({...x, count: Math.max(x.count, x.jobs.length), visa: visaMatch(x.name)}));
+  const get = (key, name) => { if (!by.has(key)) by.set(key, {key, name, baName: '', facet: 0, ba: [], daily: [], ci: null}); return by.get(key); };
+  live.jobs.forEach(j => { if (st.en && j.lang !== 'en') return; const g = get(normCo(j.co) || j.co, j.co); g.baName = j.co; g.ba.push(j); });
+  if (!st.en) live.facet.forEach(([name, n]) => { const g = get(normCo(name) || name, name); g.baName = name; g.facet = n; });
+  dailyNear().forEach(j => {
+    const c = DATA.companies[j.c]; const k = normCo(c.name) || c.name;
+    const hit = by.has(k) ? k : [...by.keys()].find(x => x.length > 3 && k.length > 3 && (x.startsWith(k) || k.startsWith(x)));
+    const g = hit ? by.get(hit) : get(k, c.name); g.daily.push(j); g.ci = j.c; g.name = c.name;
+  });
+  let g = [...by.values()].map(x => {
+    const v = (x.ci !== null && DATA.companies[x.ci].visa) ? {offer: DATA.companies[x.ci].offer} : visaMatch(x.baName || x.name);
+    return {...x, count: Math.max(x.facet, x.ba.length) + x.daily.length, visa: v};
+  });
   if (st.visa) g = g.filter(x => x.visa);
   return g.sort((a, b) => (!!b.visa - !!a.visa) || b.count - a.count || a.name.localeCompare(b.name));
 }
-const empId = name => 'emp-' + Array.from(name).reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7).toString(36);
-function jobRow(j) {
+const empId = key => 'emp-' + Array.from(key).reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7).toString(36);
+const srcTag = s => `<span class="badge src">${esc(SRC[s] || s)}</span>`;
+function baRow(j) {
   const d = live.details[j.ref]; const lang = d?.lang || j.lang;
   const site = d?.site ? (d.site.startsWith('http') ? d.site : 'https://' + d.site) : '';
   return `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.place)}${j.ho ? ' · home office possible' : ''} · ${esc(LV[j.lv])}${j.date ? ' · ' + esc(j.date) : ''}</div>
-    ${lang === 'en' ? '<span class="badge en">English only</span>' : lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div>
+    ${srcTag('ba')}${lang === 'en' ? '<span class="badge en">English only</span>' : lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div>
     <div class="links">${j.ref ? `<a class="apply" href="https://www.arbeitsagentur.de/jobsuche/jobdetail/${encodeURIComponent(j.ref)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}
     ${safe(site) ? `<a class="apply" href="${esc(site)}" target="_blank" rel="noopener">Company site ↗</a>` : ''}</div></li>`;
 }
+function dailyRow(j) {
+  return `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div>
+    ${srcTag(j.src || 'careers')}${j.lang === 'en' ? '<span class="badge en">English only</span>' : j.lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div>
+    <div class="links">${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</div></li>`;
+}
 function liveCard(x) {
-  const id = empId(x.name); const open = st.open === x.name; const e = live.emp[x.name];
-  let jobs = e && e !== 'loading' && !e.err ? e : x.jobs;
-  if (st.en) jobs = jobs.filter(j => (live.details[j.ref]?.lang || j.lang) === 'en');
-  const places = [...new Set(x.jobs.map(j => j.place).filter(Boolean))].slice(0, 4).join(', ');
-  const en = x.jobs.filter(j => j.lang === 'en').length;
+  const id = empId(x.key); const open = st.open === x.key; const e = live.emp[x.key];
+  let ba = e && e !== 'loading' && !e.err ? e : x.ba;
+  if (st.en) ba = ba.filter(j => (live.details[j.ref]?.lang || j.lang) === 'en');
+  const titles = new Set(x.daily.map(j => j.t.toLowerCase()));
+  ba = ba.filter(j => !titles.has(j.t.toLowerCase()));
+  const places = [...new Set(x.ba.map(j => j.place).concat(x.daily.flatMap(j => j.cities)).filter(Boolean))].slice(0, 4).join(', ');
+  const srcs = [...new Set((x.facet || x.ba.length ? ['ba'] : []).concat(x.daily.map(j => j.src || 'careers')))];
+  const en = x.ba.filter(j => j.lang === 'en').length + x.daily.filter(j => j.lang === 'en').length;
+  const c = x.ci !== null ? DATA.companies[x.ci] : null;
   return `<article class="co${open ? ' hi' : ''}" id="${id}">
     <div class="row"><div><h3 class="name">${esc(x.name)}</h3>
-      <div>${x.visa ? '<span class="badge">Visa / relocation support</span>' : ''}${en ? `<span class="badge en">${en} English titles</span>` : ''}</div>
+      <div>${x.visa ? '<span class="badge">Visa / relocation support</span>' : ''}${en ? `<span class="badge en">${en} English</span>` : ''}${srcs.map(srcTag).join('')}</div>
       ${places ? `<div class="meta">${esc(places)}</div>` : ''}</div>
       <div class="n">${x.count.toLocaleString()}<small>open roles</small></div></div>
     ${x.visa?.offer ? `<p class="offer">${esc(x.visa.offer)}</p>` : ''}
-    <div class="acts"><button class="btn p" data-emp="${esc(x.name)}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name + ' ' + (x.jobs[0]?.place || st.where))}" target="_blank" rel="noopener">Google Maps ↗</a>
-      ${x.jobs.some(j => j.lat) ? `<button class="btn" data-flyemp="${esc(x.name)}" type="button">Show on map</button>` : ''}</div>
-    ${open ? (e === 'loading' ? '<p class="sum">Loading roles…</p>' : e?.err ? `<p class="sum warn">${esc(e.err)}</p>` :
-      jobs.length ? `<ul class="jobs">${jobs.map(jobRow).join('')}</ul>` : '<p class="sum">No English-only roles found in this company\'s ads.</p>') : ''}
+    <div class="acts"><button class="btn p" data-emp="${esc(x.key)}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
+      ${c && safe(c.careers) ? `<a class="btn" href="${esc(c.careers)}" target="_blank" rel="noopener">Careers page ↗</a>` : ''}
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name + ' ' + (x.ba[0]?.place || x.daily[0]?.cities[0] || st.where))}" target="_blank" rel="noopener">Google Maps ↗</a>
+      ${x.ba.some(j => j.lat) || x.daily.length ? `<button class="btn" data-flyemp="${esc(x.key)}" type="button">Show on map</button>` : ''}</div>
+    ${open ? (e === 'loading' ? '<p class="sum">Loading roles…</p>' : `${e?.err ? `<p class="sum warn">${esc(e.err)}</p>` : ''}${ba.length + x.daily.length ? `<ul class="jobs">${x.daily.map(dailyRow).join('')}${ba.map(baRow).join('')}</ul>` : '<p class="sum">No roles match the English-only filter here.</p>'}`) : ''}
   </article>`;
 }
+let lastGroups = [];
 function renderLive() {
   if (st.mode !== 'live') return;
   writeUrl(); syncControls();
   $('chips').innerHTML = BIG.slice(0, 24).map(c => `<button class="chip" data-w="${esc(c)}" aria-pressed="${st.where === c}">${esc(c)}</button>`).join('');
   if (live.err === 'setup') {
     $('stats').textContent = 'Live search is not set up yet.';
-    $('sum').textContent = ''; $('list').innerHTML = '<div class="empty">To search every employer in Germany, add your Cloudflare relay address to <b>config.js</b> (README, part 2). Until then, use the <b>Visa &amp; startup list</b> tab.</div>';
+    $('sum').textContent = ''; $('list').innerHTML = '<div class="empty">To search every employer in Germany, add your Cloudflare relay address to <b>config.js</b> (README, part 2). Until then, use the <b>Careers pages &amp; Arbeitnow</b> tab.</div>';
     layer && layer.clearLayers(); return;
   }
   if (live.loading) { $('sum').textContent = `Searching ${st.where}…`; $('list').innerHTML = ''; return; }
   if (live.err) { $('sum').innerHTML = `<span class="warn">${esc(live.err)}</span>`; $('list').innerHTML = ''; return; }
-  const g = liveGroups();
-  $('stats').textContent = `${live.total.toLocaleString()} open jobs within ${st.radius} km of ${st.where}${st.q ? ' for “' + st.q + '”' : ''} · live from the Federal Employment Agency`;
+  const g = lastGroups = liveGroups();
+  const daily = g.reduce((s, x) => s + x.daily.length, 0);
+  $('stats').textContent = `${(live.total + daily).toLocaleString()} open jobs within ${st.radius} km of ${st.where}${st.q ? ' for “' + st.q + '”' : ''} · ${live.total.toLocaleString()} from the Federal Employment Agency, ${daily.toLocaleString()} from careers pages and Arbeitnow`;
   const loaded = live.jobs.length;
-  $('sum').innerHTML = `${g.length.toLocaleString()} employers${st.en ? ` with English job titles (checked ${loaded.toLocaleString()} of ${live.total.toLocaleString()} jobs)` : ''}${st.visa ? ' on the visa-friendly list' : ''}. ` +
-    (!st.en && live.facet.length >= 100 ? 'Top 100 employers show the agency\'s exact counts; load more jobs to find smaller employers.' : '');
-  if (!g.length) { $('list').innerHTML = `<div class="empty">No employers match. ${st.visa ? 'Few listed visa-friendly companies post on this job board: try the Visa &amp; startup list tab, or ' : 'Try '}a bigger distance or fewer filters.</div>`; }
+  $('sum').innerHTML = `${g.length.toLocaleString()} employers${st.en ? ` with English jobs (agency jobs checked: ${loaded.toLocaleString()} of ${live.total.toLocaleString()})` : ''}${st.visa ? ' on the visa-friendly list' : ''}. ` +
+    (!st.en && live.facet.length >= 100 ? 'Load more jobs to find smaller employers.' : '');
+  if (!g.length) $('list').innerHTML = `<div class="empty">No employers match. Try a bigger distance or fewer filters.</div>`;
   else $('list').innerHTML = g.slice(0, st.shown).map(liveCard).join('') +
     (g.length > st.shown ? `<button class="btn more" id="more" type="button">Show more employers (${g.length - st.shown} left)</button>` : '') +
-    (loaded < live.total && live.pages < 20 ? `<button class="btn more" id="loadjobs" type="button">Load ${Math.min(500, live.total - loaded).toLocaleString()} more jobs (${loaded.toLocaleString()} of ${live.total.toLocaleString()} loaded)</button>` : '');
-  // map: one pin per employer per place, at the job's real coordinates
+    (loaded < live.total && live.pages < 20 ? `<button class="btn more" id="loadjobs" type="button">Load ${Math.min(500, live.total - loaded).toLocaleString()} more agency jobs (${loaded.toLocaleString()} of ${live.total.toLocaleString()} loaded)</button>` : '');
   if (!map) return;
   layer.clearLayers();
-  const pins = new Map(); const shownNames = new Set(g.map(x => x.name));
-  live.jobs.forEach(j => { if (!j.lat || !shownNames.has(j.co) || (st.en && j.lang !== 'en')) return;
-    const k = j.co + '|' + j.lat.toFixed(3) + ',' + j.lng.toFixed(3);
-    if (!pins.has(k)) pins.set(k, {co: j.co, lat: j.lat, lng: j.lng, place: j.place, n: 0}); pins.get(k).n++; });
+  const pins = new Map();
+  const add = (key, name, lat, lng, place, n) => { const k = key + '|' + lat.toFixed(3) + ',' + lng.toFixed(3); if (!pins.has(k)) pins.set(k, {key, name, lat, lng, place, n: 0}); pins.get(k).n += n; };
+  g.forEach(x => {
+    x.ba.forEach(j => j.lat && add(x.key, x.name, j.lat, j.lng, j.place, 1));
+    if (x.ci !== null) DATA.companies[x.ci].pins.forEach(([city, lat, lng]) => { const n = x.daily.filter(j => j.cities.includes(city)).length; if (n) add(x.key, x.name, lat, lng, city, n); });
+  });
   const arr = [...pins.values()]; const max = Math.max(1, ...arr.map(p => p.n));
-  arr.forEach(p => pin(p.lat, p.lng, p.n, max, !!visaMatch(p.co), p.co, p.place, () => openEmp(p.co, true)));
+  arr.forEach(p => pin(p.lat, p.lng, p.n, max, !!g.find(x => x.key === p.key)?.visa, p.name, p.place, () => openEmp(p.key, true)));
   if (fitLive && arr.length) { fitLive = false; map.fitBounds(arr.map(p => [p.lat, p.lng]), {padding: [30, 30], maxZoom: 13}); }
 }
-async function openEmp(name, scroll) {
-  if (st.open === name && !scroll) { st.open = null; renderLive(); return; }
-  st.open = name;
-  const g = liveGroups(); const idx = g.findIndex(x => x.name === name); if (idx >= st.shown) st.shown = idx + 10;
-  if (!live.emp[name]) {
-    live.emp[name] = 'loading'; renderLive(); if (scroll) showCard(empId(name));
+async function openEmp(key, scroll) {
+  if (st.open === key && !scroll) { st.open = null; renderLive(); return; }
+  st.open = key;
+  const g = lastGroups.length ? lastGroups : liveGroups(); const idx = g.findIndex(x => x.key === key); if (idx >= st.shown) st.shown = idx + 10;
+  const grp = g[idx];
+  if (grp && grp.baName && !live.emp[key]) {
+    live.emp[key] = 'loading'; renderLive(); if (scroll) showCard(empId(key));
     try {
-      const d = await api('jobs', liveParams({arbeitgeber: name, size: '100', page: '1'}));
-      live.emp[name] = (d.ergebnisliste || d.stellenangebote || []).map(slim);
-      fetchDetails(live.emp[name].slice(0, 30));
-    } catch (e) { live.emp[name] = {err: 'Could not load this employer\'s roles. Try again.'}; }
+      const d = await api('jobs', liveParams({arbeitgeber: grp.baName, size: '100', page: '1'}));
+      live.emp[key] = (d.ergebnisliste || []).map(slim);
+      fetchDetails(live.emp[key].slice(0, 30));
+    } catch (e) { live.emp[key] = {err: 'Could not load this employer\'s agency roles. Try again.'}; }
   }
-  renderLive(); if (scroll) showCard(empId(name));
+  renderLive(); if (scroll) showCard(empId(key));
 }
 async function fetchDetails(jobs) {
   const todo = jobs.filter(j => j.ref && !live.details[j.ref]);
@@ -380,7 +420,7 @@ function card(ci, js) {
     <div class="acts"><button class="btn p" data-open="${ci}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
       ${safe(c.careers) ? `<a class="btn" href="${esc(c.careers)}" target="_blank" rel="noopener">Careers page ↗</a>` : ''}
       ${c.pins.length ? `<button class="btn" data-fly="${ci}" type="button">Show on map</button>` : ''}</div>
-    ${open ? `<ul class="jobs">${js.map(j => `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div>${j.lang === 'en' ? '<span class="badge en">English only</span>' : j.lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div><div class="links">${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</div></li>`).join('')}</ul>` : ''}
+    ${open ? `<ul class="jobs">${js.map(j => `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div>${srcTag(j.src || 'careers')}${j.lang === 'en' ? '<span class="badge en">English only</span>' : j.lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div><div class="links">${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</div></li>`).join('')}</ul>` : ''}
   </article>`;
 }
 function renderList(fly) {
@@ -388,7 +428,7 @@ function renderList(fly) {
   writeUrl(); syncControls();
   if (!DATA) { $('sum').textContent = 'Loading…'; return; }
   const visaCos = new Set(DATA.jobs.map(j => j.c).filter(c => DATA.companies[c].visa)).size;
-  $('stats').textContent = DATA.jobs.length ? `${DATA.jobs.length.toLocaleString()} roles · ${new Set(DATA.jobs.map(j => j.c)).size} companies · ${visaCos} with visa/relocation support · from company careers pages, updated ${DATA.updated}` : 'No jobs yet. Run the "Update jobs" action on GitHub once (see README).';
+  $('stats').textContent = DATA.jobs.length ? `${DATA.jobs.length.toLocaleString()} roles · ${new Set(DATA.jobs.map(j => j.c)).size} companies · ${visaCos} with visa/relocation support · from careers pages and Arbeitnow, updated ${DATA.updated}` : 'No jobs yet. Run the "Update jobs" action on GitHub once (see README).';
   cityCount = {}; DATA.jobs.forEach(j => { if (match(j, true)) j.cities.forEach(c => cityCount[c] = (cityCount[c] || 0) + 1); });
   const cities = Object.keys(cityCount).sort((a, b) => cityCount[b] - cityCount[a]);
   const total = DATA.jobs.filter(j => match(j, true)).length;
@@ -432,7 +472,7 @@ $('visa').addEventListener('change', () => { st.visa = $('visa').checked; st.sho
 $('vm').addEventListener('change', () => { st.vm = $('vm').checked; renderList(); });
 $('list').addEventListener('click', async e => {
   const em = e.target.closest('[data-emp]'); if (em) return openEmp(em.dataset.emp, false);
-  const fe = e.target.closest('[data-flyemp]'); if (fe && map) { const j = live.jobs.find(x => x.co === fe.dataset.flyemp && x.lat); if (j) { document.body.dataset.view = 'map'; tabs(); map.flyTo([j.lat, j.lng], 14); } return; }
+  const fe = e.target.closest('[data-flyemp]'); if (fe && map) { const x = lastGroups.find(g => g.key === fe.dataset.flyemp); const j = x?.ba.find(j => j.lat); const p = j ? [j.lat, j.lng] : (x && x.ci !== null ? DATA.companies[x.ci].pins.map(p => [p[1], p[2]])[0] : null); if (p) { document.body.dataset.view = 'map'; tabs(); map.flyTo(p, 13); } return; }
   const o = e.target.closest('[data-open]'); if (o) { const ci = +o.dataset.open; st.open = st.open === ci ? null : ci; return renderList(); }
   const f = e.target.closest('[data-fly]'); if (f && map) { const c = DATA.companies[+f.dataset.fly]; const p = c.pins.find(x => !st.city || x[0] === st.city) || c.pins[0]; document.body.dataset.view = 'map'; tabs(); map.flyTo([p[1], p[2]], 12); return; }
   if (e.target.id === 'more') { st.shown += 40; render(); }

@@ -85,13 +85,15 @@ ENTRY = re.compile(r"\b(junior|jr|graduate|grad|trainee|apprentice|apprenticeshi
 INTERN = re.compile(r"\b(intern|internship|praktikum|praktikant(in)?|werkstudent(in)?|working student|student|thesis|abschlussarbeit|bachelorarbeit|masterarbeit)\b", re.I)
 SENIOR = re.compile(r"\b(senior|sr|lead|principal|staff|head|director|vp|vice president|chief|cto|cfo|teamlead|teamleiter|leiter|manager|architect|expert)\b", re.I)
 
+HINT_INTERN = re.compile(r"(intern|praktikum|student|werkstudent|dual|thesis|abschlussarbeit)", re.I)
+HINT_ENTRY = re.compile(r"(entry|berufseinstieg|einsteiger|junior|no experience|graduate|associate)", re.I)
+HINT_EXP = re.compile(r"(experienced|berufserfahren|mid|senior|teamleitung|leitung|executive|director|professional)", re.I)
+
 def level(title, hint=""):
     h = norm(hint)
-    if h in ("student", "internship", "intern"): return "intern"
-    if h in ("entry-level", "entry level", "entry_level", "associate"): return "entry"
-    if INTERN.search(title): return "intern"
-    if ENTRY.search(title): return "entry"
-    if SENIOR.search(title) or h in ("experienced", "mid_senior_level", "mid-senior level", "director", "executive"): return "senior"
+    if INTERN.search(title) or HINT_INTERN.search(h): return "intern"
+    if ENTRY.search(title) or HINT_ENTRY.search(h): return "entry"
+    if SENIOR.search(title) or HINT_EXP.search(h): return "senior"
     return "mid"
 
 VISA = re.compile(r"\b(visa|blue card|work permit|relocation|relocate|relocating|umzug)\b", re.I)
@@ -262,6 +264,29 @@ def discover(company):
                 break  # board exists on this system; don't try other spellings here
     return best
 
+# ---------------------------------------------------------------- Arbeitnow
+# Free public job board for Germany (https://www.arbeitnow.com). Their terms ask for a link back, which the site shows.
+def arbeitnow():
+    out, page = [], 1
+    while page <= 60:
+        d = None
+        for attempt in range(4):
+            d = get(f"https://www.arbeitnow.com/api/job-board-api?page={page}")
+            if d: break
+            time.sleep(6 * (attempt + 1))
+        if not d or not d.get("data"): break
+        out += d["data"]
+        if not (d.get("links") or {}).get("next"): break
+        page += 1
+        time.sleep(2)
+    return out
+
+def norm_co(name):
+    n = norm(re.sub(r"\(.*?\)", "", name or ""))
+    n = re.sub(r"\s+-\s+(english|deutsch|german|careers?|jobs?)$", "", n)
+    n = re.sub(r"\b(gmbh|ag|se|kg|co|ug|mbh|inc|ltd|group|deutschland|germany|holding|e\.?v\.?)\b", "", n)
+    return re.sub(r"[^a-z0-9]", "", n)
+
 # ---------------------------------------------------------------- main
 def process(company, ats_map, today):
     name = company["name"]
@@ -322,7 +347,7 @@ def main():
             jobs.append({"c": ci, "t": j["title"].strip(), "cities": jc, "loc": j["location"][:120], "url": url,
                          "lv": level(j["title"], j.get("lvl_hint", "")), "dept": (j.get("dept") or "")[:60],
                          "date": j.get("date", ""), "vm": bool(VISA.search(j.get("text") or "")),
-                         "lang": language(j["title"], j.get("text") or "")})
+                         "lang": language(j["title"], j.get("text") or ""), "src": "careers"})
             for city in jc: cities[city] = cities.get(city, 0) + 1
         if raw: found += 1
         pins = []
@@ -332,6 +357,45 @@ def main():
                 pins.append([city, round(lat + dy, 4), round(lng + dx, 4)])
         out_companies.append({"name": company["name"], "visa": company.get("visa", False), "offer": company.get("offer", ""),
                               "sector": company.get("sector", ""), "hq": company.get("city", ""), "careers": careers, "ats": ats or "", "pins": pins})
+
+    # ---- add Arbeitnow jobs, merged into existing companies where the name matches
+    an = [] if only else arbeitnow()
+    index = {norm_co(c["name"]): i for i, c in enumerate(out_companies)}
+    seen = {(j["c"], norm(j["t"]), j["cities"][0]) for j in jobs}
+    added = 0
+    for a in an:
+        title, co = (a.get("title") or "").strip(), (a.get("company_name") or "").strip()
+        if not title or not co: continue
+        jc = german_cities(a.get("location") or "")
+        if not jc and a.get("remote"): jc = ["Germany (remote/other)"]
+        if not jc: continue
+        key = norm_co(co) or co.lower()
+        if key not in index:
+            pre = next((k for k in index if len(k) > 3 and (key.startswith(k) or k.startswith(key) and len(key) > 3)), None)
+            if pre: key = pre
+        if key not in index:
+            index[key] = len(out_companies)
+            out_companies.append({"name": re.sub(r"\s+-\s+(English|Deutsch|German)$", "", co), "visa": False, "offer": "",
+                                  "sector": ", ".join((a.get("tags") or [])[:2]), "hq": jc[0], "careers": "", "ats": "arbeitnow", "pins": []})
+        ci = index[key]
+        k = (ci, norm(title), jc[0])
+        if k in seen: continue
+        seen.add(k)
+        text = strip_html(a.get("description") or "")
+        url = a.get("url") or ""
+        if not url.startswith("https://"): continue
+        ts = a.get("created_at")
+        jobs.append({"c": ci, "t": title, "cities": jc, "loc": (a.get("location") or "")[:120], "url": url,
+                     "lv": level(title, " ".join(a.get("job_types") or [])), "dept": ", ".join((a.get("tags") or [])[:2])[:60],
+                     "date": datetime.fromtimestamp(ts, timezone.utc).strftime("%Y-%m-%d") if isinstance(ts, (int, float)) else "",
+                     "vm": bool(VISA.search(text)), "lang": language(title, text), "src": "arbeitnow"})
+        added += 1
+        comp = out_companies[ci]
+        for city in jc:
+            if city in CITIES and not any(p[0] == city for p in comp["pins"]):
+                lat, lng, _ = CITIES[city]; dy, dx = jitter(comp["name"], city)
+                comp["pins"].append([city, round(lat + dy, 4), round(lng + dx, 4)])
+    print(f"Arbeitnow: {len(an)} jobs read, {added} added")
 
     OUT.parent.mkdir(exist_ok=True)
     payload = {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),

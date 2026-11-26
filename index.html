@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Visa Jobs Map Germany</title>
-<meta name="description" content="Open roles in Germany at companies that offer visa or relocation support, on a map. Filter by city and experience level, apply on the company's own site.">
+<meta name="description" content="Every open job in Germany on a map: search any city, see which companies are hiring and how many roles they have, filter by level and English-only, and apply.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -15,18 +15,24 @@
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;display:flex;flex-direction:column}
 a{color:inherit}
-header{background:var(--g);color:#fff;padding:14px clamp(12px,3vw,28px) 12px}
-.top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header{background:var(--g);color:#fff;padding:12px clamp(12px,3vw,28px)}
+.top{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .brand{font:700 20px "Inter Tight",sans-serif;white-space:nowrap}
-.stats{color:var(--g2);font-size:13px;flex:1}
-.search{flex:1 1 280px;max-width:460px;height:42px;border-radius:10px;border:0;padding:0 14px;font:inherit;font-size:16px}
-.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
-select{height:40px;border-radius:10px;border:0;padding:0 10px;font:inherit;font-size:15px;background:#fff;color:#10201c;max-width:240px}
+.modes{display:flex;background:rgba(255,255,255,.13);border-radius:10px;padding:3px}
+.modes button{border:0;background:none;color:#fff;padding:7px 12px;border-radius:8px;font:600 14px Inter;cursor:pointer;white-space:nowrap}
+.modes button[aria-pressed=true]{background:#fff;color:var(--g)}
+.stats{color:var(--g2);font-size:13px;flex:1 1 200px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+input[type=search],input[type=text],select{height:40px;border-radius:10px;border:0;padding:0 12px;font:inherit;font-size:16px;background:#fff;color:#10201c}
+#q{flex:1 1 240px;max-width:380px}#where{width:180px}#radius{width:110px}#city{max-width:230px}
+.go{height:40px;border:0;border-radius:10px;background:var(--coral);color:#fff;font:600 15px Inter;padding:0 16px;cursor:pointer}
 .seg{display:flex;background:rgba(255,255,255,.13);border-radius:10px;padding:3px;flex-wrap:wrap}
 .seg button{border:0;background:none;color:#fff;padding:7px 11px;border-radius:8px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
 .seg button[aria-pressed=true]{background:var(--g2);color:var(--g);font-weight:600}
 .tog{display:flex;align-items:center;gap:6px;font-size:14px;color:#fff;cursor:pointer;white-space:nowrap}
 .tog input{width:18px;height:18px;accent-color:var(--coral)}
+.only-live,.only-list{display:contents}
+body[data-mode=list] .only-live,body[data-mode=live] .only-list{display:none}
 .chips{display:flex;gap:6px;overflow-x:auto;padding:10px clamp(12px,3vw,28px);background:var(--card);border-bottom:1px solid var(--line);scrollbar-width:thin}
 .chip{flex:none;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
 .chip b{font-weight:600}.chip[aria-pressed=true]{background:var(--g);color:#fff;border-color:var(--g)}
@@ -34,6 +40,7 @@ main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr)
 #listWrap{overflow-y:auto;padding:14px;border-right:1px solid var(--line)}
 #map{height:100%;min-height:420px}
 .sum{font-size:13px;color:var(--mut);margin:0 2px 10px}
+.warn{color:#b3261e}
 .co{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
 .co.hi{outline:2px solid var(--coral)}
 .row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
@@ -42,8 +49,7 @@ main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr)
 @media(prefers-color-scheme:dark){.n{color:#b9e88a}}
 .n small{display:block;font:500 11px Inter;color:var(--mut)}
 .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--g2);color:var(--g);margin:4px 4px 0 0}
-.badge.en{background:#dbeafe;color:#1e3a8a}.badge.de{background:#eceff1;color:#455a64}
-.badge.vm{background:#ffe2dc;color:#8a2b1c}
+.badge.vm{background:#ffe2dc;color:#8a2b1c}.badge.en{background:#dbeafe;color:#1e3a8a}.badge.de{background:#eceff1;color:#455a64}
 .meta{font-size:13px;color:var(--mut);margin-top:3px}
 .offer{font-size:13px;margin:6px 0 0}
 .acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
@@ -52,7 +58,8 @@ main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr)
 .jobs{list-style:none;margin:10px 0 0;padding:0}
 .jobs li{border-top:1px solid var(--line);padding:8px 0;display:flex;justify-content:space-between;gap:10px;align-items:center}
 .jobs .t{font-weight:500}.jobs .s{font-size:12px;color:var(--mut)}
-.apply{flex:none;font-size:13px;font-weight:600;color:var(--g);text-decoration:none;border:1px solid var(--g);border-radius:8px;padding:5px 10px}
+.links{display:flex;flex-direction:column;gap:4px;flex:none}
+.apply{font-size:13px;font-weight:600;color:var(--g);text-decoration:none;border:1px solid var(--g);border-radius:8px;padding:5px 10px;text-align:center}
 @media(prefers-color-scheme:dark){.apply{color:#b9e88a;border-color:#b9e88a}}
 .more{width:100%;margin:6px 0 20px}
 .empty{padding:30px 10px;text-align:center;color:var(--mut)}
@@ -65,65 +72,286 @@ main{flex:1;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr)
 footer{font-size:12px;color:var(--mut);padding:8px clamp(12px,3vw,28px);border-top:1px solid var(--line);background:var(--card)}
 :focus-visible{outline:3px solid var(--coral);outline-offset:2px}
 @media(max-width:860px){
+  html,body{height:auto}body{display:block}.stats{flex-basis:100%;order:3;font-size:12px}
   main{grid-template-columns:minmax(0,1fr)}
   .tabs{display:flex;gap:6px;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--line)}
   .tabs button{flex:1;height:38px}
   body[data-view=list] #mapWrap{display:none} body[data-view=map] #listWrap{display:none}
-  html,body{height:auto}body{display:block}.stats{flex-basis:100%;order:3;font-size:12px}
-  #listWrap{border:0;overflow:visible}#map{height:72vh}
+  #listWrap{border:0;overflow:visible}#map{height:72vh}#where,#q{flex:1 1 100%;max-width:none;width:auto}
 }
 </style>
+<script src="config.js"></script>
 </head>
-<body data-view="list">
+<body data-view="list" data-mode="live">
 <header>
   <div class="top">
     <div class="brand">Visa Jobs Map · Germany</div>
-    <div class="stats" id="stats">Loading jobs…</div>
-    <input class="search" id="q" type="search" placeholder="Search roles, skills or companies" aria-label="Search roles, skills or companies">
+    <div class="modes" role="group" aria-label="What to search">
+      <button type="button" data-m="live" aria-pressed="true">All employers in Germany</button>
+      <button type="button" data-m="list" aria-pressed="false">Visa &amp; startup list</button>
+    </div>
+    <div class="stats" id="stats"></div>
   </div>
-  <div class="filters">
-    <select id="city" aria-label="City"><option value="">All of Germany</option></select>
+  <form class="filters" id="form">
+    <span class="only-live">
+      <input type="text" id="where" list="places" placeholder="City or postcode" aria-label="City or postcode" value="Berlin"><datalist id="places"></datalist>
+      <select id="radius" aria-label="Distance"><option value="5">+5 km</option><option value="10">+10 km</option><option value="25" selected>+25 km</option><option value="50">+50 km</option><option value="100">+100 km</option></select>
+    </span>
+    <span class="only-list"><select id="city" aria-label="City"><option value="">All of Germany</option></select></span>
+    <input type="search" id="q" placeholder="Job title or skill, e.g. data analyst" aria-label="Job title or skill">
+    <span class="only-live"><button class="go" type="submit">Search</button></span>
     <div class="seg" id="lvl" role="group" aria-label="Experience level">
       <button type="button" data-v="all" aria-pressed="true">All levels</button>
       <button type="button" data-v="entry" aria-pressed="false">Entry-level</button>
-      <button type="button" data-v="intern" aria-pressed="false">Internships &amp; students</button>
+      <button type="button" data-v="intern" aria-pressed="false">Internships &amp; trainee</button>
       <button type="button" data-v="exp" aria-pressed="false">Experienced</button>
     </div>
-    <label class="tog"><input type="checkbox" id="en"> English-only jobs (no German needed)</label>
+    <label class="tog"><input type="checkbox" id="en"> English-only jobs</label>
     <label class="tog"><input type="checkbox" id="visa"> Visa-friendly companies only</label>
-    <label class="tog"><input type="checkbox" id="vm"> Job ad mentions visa / relocation</label>
-  </div>
+    <span class="only-live"><label class="tog"><input type="checkbox" id="noag" checked> Hide temp &amp; recruitment agencies</label></span>
+    <span class="only-list"><label class="tog"><input type="checkbox" id="vm"> Job ad mentions visa / relocation</label></span>
+  </form>
 </header>
-<nav class="chips" id="chips" aria-label="Cities"></nav>
+<nav class="chips" id="chips" aria-label="Places"></nav>
 <div class="tabs"><button class="btn p" data-t="list" type="button">List</button><button class="btn" data-t="map" type="button">Map</button></div>
 <main>
   <section id="listWrap" aria-label="Companies"><p class="sum" id="sum"></p><div id="list"></div></section>
   <section id="mapWrap"><div id="map"></div></section>
 </main>
-<footer>Roles come from each company's own careers page and link back to it, updated daily. Pins show the city, not the exact office. "Visa-friendly" means the company has advertised visa or relocation support; always confirm in the job ad.</footer>
+<footer id="foot"></footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 {
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safe = u => /^https:\/\//.test(u || '') ? u : '';
+const API = (window.JOBS_API || '').replace(/\/$/, '');
 const LV = {entry:'Entry-level', intern:'Internship / student', mid:'Mid-level', senior:'Senior'};
-const st = {city:'', lvl:'all', q:'', en:false, visa:false, vm:false, open:null, shown:40};
+const BIG = ['Berlin','Munich','Hamburg','Frankfurt am Main','Cologne','Düsseldorf','Stuttgart','Leipzig','Dresden','Hanover','Nuremberg','Bremen','Essen','Dortmund','Bonn','Mannheim','Karlsruhe','Heidelberg','Freiburg','Augsburg','Wiesbaden','Mainz','Münster','Aachen','Potsdam','Kiel','Regensburg','Ingolstadt','Ulm','Darmstadt','Erlangen','Jena','Chemnitz','Braunschweig','Wolfsburg','Bielefeld','Rostock','Würzburg','Magdeburg','Erfurt','Saarbrücken','Lübeck','Osnabrück','Oldenburg','Kassel','Göttingen','Heilbronn','Halle (Saale)'];
+const DE_NAME = {'Munich':'München','Cologne':'Köln','Hanover':'Hannover','Nuremberg':'Nürnberg'};
+const st = {mode:'live', city:'', lvl:'all', q:'', en:false, visa:false, vm:false, open:null, shown:40,
+            where:'Berlin', radius:'25', noag:true};
 let DATA = null, map, layer, cityCount = {};
 
-// URL <-> state
+// ---------- language & level helpers (same rules as the daily robot)
+const DE_REQ = /(fluent|fluency|business[- ]fluent|native|excellent|very good|strong|good|proficien\w*|professional|full)\W+(?:\w+\W+){0,3}?(german|deutsch)|(german|deutsch)\W*(language\W*)?(skills?\W*)?(\(|:|-)?\W*(c1|c2|b2|native|fluent|mother tongue|muttersprach\w*)|german\W+(is\W+)?(required|mandatory|a must|essential)|(german|deutsch)\w*\W+(?:\w+\W+){0,2}?(speaking|speaker)|(sehr gute|gute|fließende|fliessende|verhandlungssichere|exzellente)\W+(?:\w+\W+){0,2}?deutsch\w*|deutsch\w*\W+(?:\w+\W+){0,2}?(in wort und schrift|fließend|fliessend|verhandlungssicher)/gi;
+const DE_SOFT = /(plus|nice[- ]to[- ]have|advantage|advantageous|bonus|not required|not a must|no german|not necessary|optional|helpful|beneficial|desirable|preferred|asset|von vorteil|wünschenswert|willingness to learn|learn german|german classes|german courses|language course)/i;
+const DEW = /\b(und|der|die|das|mit|für|wir|sie|ihre|unser|unsere|sowie|eine|einen|bei|deine|dich|bist|kenntnisse|aufgaben|zur|zum|im|als|oder|von)\b/gi;
+const ENW = /\b(and|the|with|for|we|you|our|your|are|will|team|experience|skills|of|to|in|as|or)\b/gi;
+function textLang(t) {
+  t = t || ''; let m; DE_REQ.lastIndex = 0;
+  while ((m = DE_REQ.exec(t))) { if (!DE_SOFT.test(t.slice(Math.max(0, m.index - 80), m.index + m[0].length + 80))) return 'de'; }
+  const de = (t.match(DEW) || []).length, en = (t.match(ENW) || []).length;
+  return de + en >= 6 ? (de > en ? 'de' : 'en') : '';
+}
+const DE_TITLE = /(\(m\/w\/d\)|\(w\/m\/d\)|\(m\/w\/x\)|\(m\/f\/d\)\s*für|mitarbeiter|sachbearbeiter|kaufmann|kauffrau|fachkraft|fachmann|leiter|referent|werkstudent|praktikant|ausbildung|berater|entwickler|ingenieur|vertrieb|buchhalter|pflege|helfer|fahrer|verkäufer|monteur|elektriker|erzieher|koch|reinigung|lager|stelle|gesucht|für|und|der|die|im|zur|zum|mit)/i;
+const EN_TITLE = /\b(manager|engineer|developer|analyst|specialist|associate|consultant|designer|scientist|lead|head|intern|internship|working student|representative|executive|officer|coordinator|architect|administrator|product|marketing|sales|customer|success|software|data|account|business|operations|finance|people|talent|recruiter|support|research|content|growth|partner|senior|junior|of|and|the|for|with)\b/gi;
+function titleLang(t) {
+  if (DE_TITLE.test(t)) return 'de';
+  return (t.match(EN_TITLE) || []).length >= 2 ? 'en' : '';
+}
+const ENTRY = /\b(junior|jr|graduate|trainee|apprentice|entry[- ]level|einsteiger|berufseinsteiger|associate|quereinsteiger)\b/i;
+const INTERN = /\b(intern|internship|praktikum|praktikant\w*|werkstudent\w*|working student|student|thesis|abschlussarbeit)\b/i;
+const SENIOR = /\b(senior|sr|lead|principal|staff|head|director|vp|chief|leiter\w*|manager|architect|expert)\b/i;
+const levelOf = t => INTERN.test(t) ? 'intern' : ENTRY.test(t) ? 'entry' : SENIOR.test(t) ? 'senior' : 'mid';
+
+// visa-list matching for live results
+const normCo = s => (s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/\(.*?\)/g, '').replace(/\b(gmbh|ag|se|kg|co|ug|mbh|inc|ltd|group|deutschland|germany|holding|e\.?v\.?)\b/g, '').replace(/[^a-z0-9]/g, '');
+let VISA_KEYS = [];
+const visaMatch = name => { const n = normCo(name); return VISA_KEYS.find(v => v.k.length > 3 && (n === v.k || n.startsWith(v.k))); };
+
+// ---------- URL state
 function readUrl() {
   const p = new URLSearchParams(location.search);
+  st.mode = p.get('mode') === 'list' ? 'list' : 'live';
   st.city = p.get('city') || ''; st.lvl = p.get('level') || 'all'; st.q = p.get('q') || '';
   st.en = p.get('english') === '1'; st.visa = p.get('visa') === '1'; st.vm = p.get('mentions') === '1';
+  st.where = p.get('where') || 'Berlin'; st.radius = p.get('km') || '25'; st.noag = p.get('agencies') !== '1';
 }
 function writeUrl() {
   const p = new URLSearchParams();
-  if (st.city) p.set('city', st.city); if (st.lvl !== 'all') p.set('level', st.lvl); if (st.q) p.set('q', st.q);
-  if (st.en) p.set('english', '1'); if (st.visa) p.set('visa', '1'); if (st.vm) p.set('mentions', '1');
-  history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+  if (st.mode === 'list') { p.set('mode', 'list'); if (st.city) p.set('city', st.city); if (st.vm) p.set('mentions', '1'); }
+  else { p.set('where', st.where); if (st.radius !== '25') p.set('km', st.radius); if (!st.noag) p.set('agencies', '1'); }
+  if (st.lvl !== 'all') p.set('level', st.lvl); if (st.q) p.set('q', st.q);
+  if (st.en) p.set('english', '1'); if (st.visa) p.set('visa', '1');
+  history.replaceState(null, '', location.pathname + '?' + p);
+}
+function syncControls() {
+  document.body.dataset.mode = st.mode;
+  document.querySelectorAll('.modes button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === st.mode));
+  document.querySelectorAll('#lvl button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.lvl));
+  $('q').value = st.q; $('en').checked = st.en; $('visa').checked = st.visa; $('vm').checked = st.vm;
+  $('where').value = st.where; $('radius').value = st.radius; $('noag').checked = st.noag;
+  $('foot').textContent = st.mode === 'live'
+    ? 'Live data from the job search of the Bundesagentur für Arbeit (Federal Employment Agency), which lists most job ads in Germany. Company counts use the agency\'s numbers. "English-only" reads job titles, then the full ad when you open a company. "Visa-friendly" marks employers on our list that advertise visa or relocation support: always confirm in the ad.'
+    : 'Roles come from each company\'s own careers page and link back to it, updated daily. Pins show the city, not the exact office. "Visa-friendly" means the company has advertised visa or relocation support; always confirm in the job ad.';
 }
 
+// ---------- map
+function initMap() {
+  if (!window.L) return;
+  map = L.map('map').setView([51.2, 10.4], 6);
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png`, {maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+  layer = L.layerGroup().addTo(map);
+  const lg = L.control({position: 'bottomleft'});
+  lg.onAdd = () => { const d = L.DomUtil.create('div', 'legend'); d.innerHTML = '<span class="dot" style="background:#00463c"></span>Visa / relocation support<br><span class="dot" style="background:#6b7c77"></span>Other employers'; return d; };
+  lg.addTo(map);
+}
+function pin(lat, lng, n, max, visa, name, place, onOpen) {
+  const m = L.circleMarker([lat, lng], {radius: 5 + 13 * Math.sqrt(n / max), color: '#fff', weight: 1.5, fillOpacity: .85, fillColor: visa ? '#00463c' : '#6b7c77'});
+  const div = document.createElement('div'); div.className = 'pop';
+  const b = document.createElement('b'); b.textContent = name; div.append(b);
+  const p = document.createElement('div'); p.textContent = `${n} open role${n > 1 ? 's' : ''}${place ? ' in ' + place : ''}${visa ? ' · visa/relocation support' : ''}`; div.append(p);
+  const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = 'View roles'; btn.onclick = onOpen; div.append(btn);
+  m.bindPopup(div); m.bindTooltip(`${name} · ${n}`); layer.addLayer(m); return m;
+}
+function tabs() { document.querySelectorAll('.tabs button').forEach(b => b.className = 'btn' + (b.dataset.t === document.body.dataset.view ? ' p' : '')); if (map) setTimeout(() => map.invalidateSize(), 50); }
+function showCard(id) { document.body.dataset.view = 'list'; tabs(); $(id)?.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+
+// =====================================================================  LIVE MODE
+const live = {total: 0, facet: [], jobs: [], pages: 0, loading: false, err: '', emp: {}, details: {}, key: ''};
+const LVL_PARAMS = {all: {}, entry: {angebotsart: '1', quereinstieg: 'true'}, intern: {angebotsart: '34'}, exp: {angebotsart: '1', quereinstieg: 'false'}};
+function liveParams(extra) {
+  const wo = DE_NAME[st.where] || st.where;
+  const p = new URLSearchParams({wo, umkreis: st.radius, ...LVL_PARAMS[st.lvl], ...extra});
+  if (st.q) p.set('was', st.q);
+  if (st.noag) { p.set('zeitarbeit', 'false'); p.set('pav', 'false'); }
+  return p;
+}
+async function api(path, params) {
+  const r = await fetch(`${API}/${path}?${params}`);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+function placeOf(j) { const a = (j.stellenlokationen || [])[0]?.adresse || {}; return a.ort || ''; }
+function slim(j) {
+  const loc = (j.stellenlokationen || [])[0] || {};
+  return {t: j.stellenangebotsTitel || j.titel || '', co: j.firma || j.arbeitgeber || 'Unknown employer', ref: j.referenznummer || j.refnr || '',
+          place: placeOf(j), lat: loc.breite, lng: loc.laenge, date: j.datumErsteVeroeffentlichung || j.aktuelleVeroeffentlichungsdatum || '',
+          ho: !!j.homeofficemoeglich, lang: titleLang(j.stellenangebotsTitel || ''), lv: levelOf(j.stellenangebotsTitel || '')};
+}
+async function liveSearch() {
+  if (!API) { live.err = 'setup'; renderLive(); return; }
+  const key = liveParams({}).toString();
+  live.key = key; live.loading = true; live.err = ''; live.jobs = []; live.facet = []; live.pages = 0; live.emp = {}; st.open = null; st.shown = 40;
+  renderLive();
+  try {
+    const d = await api('jobs', liveParams({size: '500', page: '1'}));
+    if (live.key !== key) return;
+    live.total = d.maxErgebnisse || 0;
+    live.facet = Object.entries(d.facetten?.arbeitgeber?.counts || {}).sort((a, b) => b[1] - a[1]);
+    live.jobs = (d.ergebnisliste || d.stellenangebote || []).map(slim); live.pages = 1;
+    if (st.en && live.total > 500) await loadMore(3);
+    fitLive = true;
+  } catch (e) { live.err = 'Could not reach the job search right now (' + e.message + '). Try again in a minute.'; }
+  live.loading = false; renderLive();
+}
+let fitLive = false;
+async function loadMore(n = 1) {
+  const key = live.key;
+  for (let i = 0; i < n && live.pages < 20 && live.jobs.length < live.total; i++) {
+    const d = await api('jobs', liveParams({size: '500', page: String(live.pages + 1)}));
+    if (live.key !== key) return;
+    live.jobs = live.jobs.concat((d.ergebnisliste || d.stellenangebote || []).map(slim)); live.pages++;
+  }
+}
+function liveGroups() {
+  // employer -> {count (agency's exact number when known), jobs loaded}
+  const by = new Map();
+  const jobs = live.jobs.filter(j => !st.en || j.lang === 'en');
+  jobs.forEach(j => { if (!by.has(j.co)) by.set(j.co, {name: j.co, jobs: [], count: 0}); by.get(j.co).jobs.push(j); });
+  if (!st.en) live.facet.forEach(([name, n]) => { if (!by.has(name)) by.set(name, {name, jobs: [], count: 0}); by.get(name).count = n; });
+  let g = [...by.values()].map(x => ({...x, count: Math.max(x.count, x.jobs.length), visa: visaMatch(x.name)}));
+  if (st.visa) g = g.filter(x => x.visa);
+  return g.sort((a, b) => (!!b.visa - !!a.visa) || b.count - a.count || a.name.localeCompare(b.name));
+}
+const empId = name => 'emp-' + Array.from(name).reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7).toString(36);
+function jobRow(j) {
+  const d = live.details[j.ref]; const lang = d?.lang || j.lang;
+  const site = d?.site ? (d.site.startsWith('http') ? d.site : 'https://' + d.site) : '';
+  return `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.place)}${j.ho ? ' · home office possible' : ''} · ${esc(LV[j.lv])}${j.date ? ' · ' + esc(j.date) : ''}</div>
+    ${lang === 'en' ? '<span class="badge en">English only</span>' : lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div>
+    <div class="links">${j.ref ? `<a class="apply" href="https://www.arbeitsagentur.de/jobsuche/jobdetail/${encodeURIComponent(j.ref)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}
+    ${safe(site) ? `<a class="apply" href="${esc(site)}" target="_blank" rel="noopener">Company site ↗</a>` : ''}</div></li>`;
+}
+function liveCard(x) {
+  const id = empId(x.name); const open = st.open === x.name; const e = live.emp[x.name];
+  let jobs = e && e !== 'loading' && !e.err ? e : x.jobs;
+  if (st.en) jobs = jobs.filter(j => (live.details[j.ref]?.lang || j.lang) === 'en');
+  const places = [...new Set(x.jobs.map(j => j.place).filter(Boolean))].slice(0, 4).join(', ');
+  const en = x.jobs.filter(j => j.lang === 'en').length;
+  return `<article class="co${open ? ' hi' : ''}" id="${id}">
+    <div class="row"><div><h3 class="name">${esc(x.name)}</h3>
+      <div>${x.visa ? '<span class="badge">Visa / relocation support</span>' : ''}${en ? `<span class="badge en">${en} English titles</span>` : ''}</div>
+      ${places ? `<div class="meta">${esc(places)}</div>` : ''}</div>
+      <div class="n">${x.count.toLocaleString()}<small>open roles</small></div></div>
+    ${x.visa?.offer ? `<p class="offer">${esc(x.visa.offer)}</p>` : ''}
+    <div class="acts"><button class="btn p" data-emp="${esc(x.name)}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name + ' ' + (x.jobs[0]?.place || st.where))}" target="_blank" rel="noopener">Google Maps ↗</a>
+      ${x.jobs.some(j => j.lat) ? `<button class="btn" data-flyemp="${esc(x.name)}" type="button">Show on map</button>` : ''}</div>
+    ${open ? (e === 'loading' ? '<p class="sum">Loading roles…</p>' : e?.err ? `<p class="sum warn">${esc(e.err)}</p>` :
+      jobs.length ? `<ul class="jobs">${jobs.map(jobRow).join('')}</ul>` : '<p class="sum">No English-only roles found in this company\'s ads.</p>') : ''}
+  </article>`;
+}
+function renderLive() {
+  if (st.mode !== 'live') return;
+  writeUrl(); syncControls();
+  $('chips').innerHTML = BIG.slice(0, 24).map(c => `<button class="chip" data-w="${esc(c)}" aria-pressed="${st.where === c}">${esc(c)}</button>`).join('');
+  if (live.err === 'setup') {
+    $('stats').textContent = 'Live search is not set up yet.';
+    $('sum').textContent = ''; $('list').innerHTML = '<div class="empty">To search every employer in Germany, add your Cloudflare relay address to <b>config.js</b> (README, part 2). Until then, use the <b>Visa &amp; startup list</b> tab.</div>';
+    layer && layer.clearLayers(); return;
+  }
+  if (live.loading) { $('sum').textContent = `Searching ${st.where}…`; $('list').innerHTML = ''; return; }
+  if (live.err) { $('sum').innerHTML = `<span class="warn">${esc(live.err)}</span>`; $('list').innerHTML = ''; return; }
+  const g = liveGroups();
+  $('stats').textContent = `${live.total.toLocaleString()} open jobs within ${st.radius} km of ${st.where}${st.q ? ' for “' + st.q + '”' : ''} · live from the Federal Employment Agency`;
+  const loaded = live.jobs.length;
+  $('sum').innerHTML = `${g.length.toLocaleString()} employers${st.en ? ` with English job titles (checked ${loaded.toLocaleString()} of ${live.total.toLocaleString()} jobs)` : ''}${st.visa ? ' on the visa-friendly list' : ''}. ` +
+    (!st.en && live.facet.length >= 100 ? 'Top 100 employers show the agency\'s exact counts; load more jobs to find smaller employers.' : '');
+  if (!g.length) { $('list').innerHTML = `<div class="empty">No employers match. ${st.visa ? 'Few listed visa-friendly companies post on this job board: try the Visa &amp; startup list tab, or ' : 'Try '}a bigger distance or fewer filters.</div>`; }
+  else $('list').innerHTML = g.slice(0, st.shown).map(liveCard).join('') +
+    (g.length > st.shown ? `<button class="btn more" id="more" type="button">Show more employers (${g.length - st.shown} left)</button>` : '') +
+    (loaded < live.total && live.pages < 20 ? `<button class="btn more" id="loadjobs" type="button">Load ${Math.min(500, live.total - loaded).toLocaleString()} more jobs (${loaded.toLocaleString()} of ${live.total.toLocaleString()} loaded)</button>` : '');
+  // map: one pin per employer per place, at the job's real coordinates
+  if (!map) return;
+  layer.clearLayers();
+  const pins = new Map(); const shownNames = new Set(g.map(x => x.name));
+  live.jobs.forEach(j => { if (!j.lat || !shownNames.has(j.co) || (st.en && j.lang !== 'en')) return;
+    const k = j.co + '|' + j.lat.toFixed(3) + ',' + j.lng.toFixed(3);
+    if (!pins.has(k)) pins.set(k, {co: j.co, lat: j.lat, lng: j.lng, place: j.place, n: 0}); pins.get(k).n++; });
+  const arr = [...pins.values()]; const max = Math.max(1, ...arr.map(p => p.n));
+  arr.forEach(p => pin(p.lat, p.lng, p.n, max, !!visaMatch(p.co), p.co, p.place, () => openEmp(p.co, true)));
+  if (fitLive && arr.length) { fitLive = false; map.fitBounds(arr.map(p => [p.lat, p.lng]), {padding: [30, 30], maxZoom: 13}); }
+}
+async function openEmp(name, scroll) {
+  if (st.open === name && !scroll) { st.open = null; renderLive(); return; }
+  st.open = name;
+  const g = liveGroups(); const idx = g.findIndex(x => x.name === name); if (idx >= st.shown) st.shown = idx + 10;
+  if (!live.emp[name]) {
+    live.emp[name] = 'loading'; renderLive(); if (scroll) showCard(empId(name));
+    try {
+      const d = await api('jobs', liveParams({arbeitgeber: name, size: '100', page: '1'}));
+      live.emp[name] = (d.ergebnisliste || d.stellenangebote || []).map(slim);
+      fetchDetails(live.emp[name].slice(0, 30));
+    } catch (e) { live.emp[name] = {err: 'Could not load this employer\'s roles. Try again.'}; }
+  }
+  renderLive(); if (scroll) showCard(empId(name));
+}
+async function fetchDetails(jobs) {
+  const todo = jobs.filter(j => j.ref && !live.details[j.ref]);
+  let i = 0;
+  const worker = async () => { while (i < todo.length) { const j = todo[i++];
+    try { const d = await api('details', new URLSearchParams({ref: j.ref}));
+      live.details[j.ref] = {lang: textLang((d.stellenangebotsTitel || '') + ' ' + (d.stellenangebotsBeschreibung || '')) || j.lang, site: d.allianzpartnerUrl || ''};
+    } catch (e) { live.details[j.ref] = {lang: j.lang}; } } };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+  renderLive();
+}
+
+// =====================================================================  LIST MODE (daily data from careers pages)
 const lvOk = j => st.lvl === 'all' || (st.lvl === 'exp' ? (j.lv === 'mid' || j.lv === 'senior') : j.lv === st.lvl);
 function match(j, ignoreCity) {
   const c = DATA.companies[j.c];
@@ -135,32 +363,13 @@ function match(j, ignoreCity) {
   if (st.q) { const q = st.q.toLowerCase(); if (!(j.t + ' ' + j.dept + ' ' + c.name).toLowerCase().includes(q)) return false; }
   return true;
 }
-
-function renderControls() {
-  $('q').value = st.q; $('en').checked = st.en; $('visa').checked = st.visa; $('vm').checked = st.vm;
-  document.querySelectorAll('#lvl button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.lvl));
-  cityCount = {};
-  DATA.jobs.forEach(j => { if (match(j, true)) j.cities.forEach(c => cityCount[c] = (cityCount[c] || 0) + 1); });
-  const cities = Object.keys(cityCount).sort((a, b) => cityCount[b] - cityCount[a]);
-  const total = DATA.jobs.filter(j => match(j, true)).length;
-  $('chips').innerHTML = `<button class="chip" data-c="" aria-pressed="${!st.city}">All Germany <b>${total.toLocaleString()}</b></button>` +
-    cities.map(c => `<button class="chip" data-c="${esc(c)}" aria-pressed="${st.city === c}">${esc(c)} <b>${cityCount[c].toLocaleString()}</b></button>`).join('');
-  const sel = $('city'); const all = Object.keys(DATA.cities).concat(['Germany (remote/other)']);
-  sel.innerHTML = '<option value="">All of Germany</option>' + all.filter(c => cityCount[c] || c === st.city).sort().map(c => `<option value="${esc(c)}">${esc(c)} (${cityCount[c] || 0})</option>`).join('');
-  sel.value = st.city;
-}
-
 function groups() {
   const by = new Map();
   DATA.jobs.forEach(j => { if (match(j)) { if (!by.has(j.c)) by.set(j.c, []); by.get(j.c).push(j); } });
   return [...by.entries()].sort((a, b) => (DATA.companies[b[0]].visa - DATA.companies[a[0]].visa) || b[1].length - a[1].length);
 }
-
 function card(ci, js) {
-  const c = DATA.companies[ci];
-  const cnt = k => js.filter(j => j.lv === k).length;
-  const open = st.open === ci;
-  const shownJobs = open ? js : [];
+  const c = DATA.companies[ci]; const cnt = k => js.filter(j => j.lv === k).length; const open = st.open === ci;
   return `<article class="co${open ? ' hi' : ''}" id="co-${ci}">
     <div class="row"><div><h3 class="name">${esc(c.name)}</h3>
       <div>${c.visa ? '<span class="badge">Visa / relocation support</span>' : ''}${js.some(j => j.vm) ? `<span class="badge vm">${js.filter(j => j.vm).length} ads mention visa</span>` : ''}</div>
@@ -171,91 +380,74 @@ function card(ci, js) {
     <div class="acts"><button class="btn p" data-open="${ci}" type="button">${open ? 'Hide roles' : 'View roles'}</button>
       ${safe(c.careers) ? `<a class="btn" href="${esc(c.careers)}" target="_blank" rel="noopener">Careers page ↗</a>` : ''}
       ${c.pins.length ? `<button class="btn" data-fly="${ci}" type="button">Show on map</button>` : ''}</div>
-    ${open ? `<ul class="jobs">${shownJobs.map(j => `<li><div><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div>${j.lang === 'en' ? '<span class="badge en">English only</span>' : j.lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div></div>${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</li>`).join('')}</ul>` : ''}
+    ${open ? `<ul class="jobs">${js.map(j => `<li><div><div class="t">${esc(j.t)}</div><div class="s">${esc(j.cities.join(', '))} · ${esc(LV[j.lv])}${j.dept ? ' · ' + esc(j.dept) : ''}${j.date ? ' · ' + esc(j.date) : ''}${j.vm ? ' · <b>mentions visa/relocation</b>' : ''}</div>${j.lang === 'en' ? '<span class="badge en">English only</span>' : j.lang === 'de' ? '<span class="badge de">German required</span>' : ''}</div><div class="links">${safe(j.url) ? `<a class="apply" href="${esc(j.url)}" target="_blank" rel="noopener">Apply ↗</a>` : ''}</div></li>`).join('')}</ul>` : ''}
   </article>`;
 }
-
-function renderList() {
-  const g = groups();
-  const roles = g.reduce((s, x) => s + x[1].length, 0);
+function renderList(fly) {
+  if (st.mode !== 'list') return;
+  writeUrl(); syncControls();
+  if (!DATA) { $('sum').textContent = 'Loading…'; return; }
+  const visaCos = new Set(DATA.jobs.map(j => j.c).filter(c => DATA.companies[c].visa)).size;
+  $('stats').textContent = DATA.jobs.length ? `${DATA.jobs.length.toLocaleString()} roles · ${new Set(DATA.jobs.map(j => j.c)).size} companies · ${visaCos} with visa/relocation support · from company careers pages, updated ${DATA.updated}` : 'No jobs yet. Run the "Update jobs" action on GitHub once (see README).';
+  cityCount = {}; DATA.jobs.forEach(j => { if (match(j, true)) j.cities.forEach(c => cityCount[c] = (cityCount[c] || 0) + 1); });
+  const cities = Object.keys(cityCount).sort((a, b) => cityCount[b] - cityCount[a]);
+  const total = DATA.jobs.filter(j => match(j, true)).length;
+  $('chips').innerHTML = `<button class="chip" data-c="" aria-pressed="${!st.city}">All Germany <b>${total.toLocaleString()}</b></button>` +
+    cities.map(c => `<button class="chip" data-c="${esc(c)}" aria-pressed="${st.city === c}">${esc(c)} <b>${cityCount[c].toLocaleString()}</b></button>`).join('');
+  $('city').innerHTML = '<option value="">All of Germany</option>' + cities.slice().sort().map(c => `<option value="${esc(c)}">${esc(c)} (${cityCount[c]})</option>`).join('');
+  $('city').value = st.city;
+  const g = groups(); const roles = g.reduce((s, x) => s + x[1].length, 0);
   $('sum').textContent = `${roles.toLocaleString()} roles at ${g.length.toLocaleString()} companies${st.city ? ' in ' + st.city : ' in Germany'}`;
-  if (!g.length) { $('list').innerHTML = '<div class="empty">No roles match these filters. Try another city or level, or clear the search.</div>'; return g; }
-  $('list').innerHTML = g.slice(0, st.shown).map(([ci, js]) => card(ci, js)).join('') +
-    (g.length > st.shown ? `<button class="btn more" id="more" type="button">Show more companies (${g.length - st.shown} left)</button>` : '');
-  return g;
-}
-
-function renderMap(g) {
+  $('list').innerHTML = g.length ? g.slice(0, st.shown).map(([ci, js]) => card(ci, js)).join('') + (g.length > st.shown ? `<button class="btn more" id="more" type="button">Show more companies (${g.length - st.shown} left)</button>` : '')
+    : '<div class="empty">No roles match these filters. Try another city or level, or clear the search.</div>';
   if (!map) return;
   layer.clearLayers();
   const max = Math.max(1, ...g.map(([, js]) => js.length));
-  g.forEach(([ci, js]) => {
-    const c = DATA.companies[ci];
-    c.pins.forEach(([city, lat, lng]) => {
-      if (st.city && city !== st.city) return;
-      const n = js.filter(j => j.cities.includes(city)).length; if (!n) return;
-      const m = L.circleMarker([lat, lng], {radius: 5 + 13 * Math.sqrt(n / max), color: '#fff', weight: 1.5, fillOpacity: .85, fillColor: c.visa ? '#00463c' : '#6b7c77'});
-      const div = document.createElement('div'); div.className = 'pop';
-      const b = document.createElement('b'); b.textContent = c.name; div.append(b);
-      const p = document.createElement('div'); p.textContent = `${n} open role${n > 1 ? 's' : ''} in ${city}${c.visa ? ' · visa/relocation support' : ''}`; div.append(p);
-      const btn = document.createElement('button'); btn.textContent = 'View roles'; btn.onclick = () => openCo(ci, true); div.append(btn);
-      m.bindPopup(div); m.bindTooltip(`${c.name} · ${n}`); layer.addLayer(m);
-    });
-  });
+  g.forEach(([ci, js]) => DATA.companies[ci].pins.forEach(([city, lat, lng]) => {
+    if (st.city && city !== st.city) return; const n = js.filter(j => j.cities.includes(city)).length; if (!n) return;
+    pin(lat, lng, n, max, DATA.companies[ci].visa, DATA.companies[ci].name, city, () => { st.open = ci; renderList(); showCard('co-' + ci); });
+  }));
+  if (fly) { const p = DATA.cities[st.city]; p ? map.flyTo(p, 11, {duration: .6}) : map.flyTo([51.2, 10.4], 6, {duration: .6}); }
 }
 
-function render(fly) {
-  renderControls(); const g = renderList(); renderMap(g); writeUrl();
-  if (fly && map) { const p = DATA.cities[st.city]; p ? map.flyTo(p, 11, {duration: .6}) : map.flyTo([51.2, 10.4], 6, {duration: .6}); }
-}
-
-function openCo(ci, scroll) {
-  st.open = st.open === ci && !scroll ? null : ci;
-  const g = groups(); const idx = g.findIndex(x => x[0] === ci);
-  if (idx >= st.shown) st.shown = idx + 10;
-  renderList();
-  if (scroll) { document.body.dataset.view = 'list'; tabs(); $('co-' + ci)?.scrollIntoView({behavior: 'smooth', block: 'start'}); }
-}
-
-function tabs() { document.querySelectorAll('.tabs button').forEach(b => b.className = 'btn' + (b.dataset.t === document.body.dataset.view ? ' p' : '')); if (map) setTimeout(() => map.invalidateSize(), 50); }
-
-function initMap() {
-  if (!window.L) return;
-  map = L.map('map', {zoomControl: true}).setView([51.2, 10.4], 6);
-  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
-  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png`, {
-    maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
-  layer = L.layerGroup().addTo(map);
-  const lg = L.control({position: 'bottomleft'});
-  lg.onAdd = () => { const d = L.DomUtil.create('div', 'legend'); d.innerHTML = '<span class="dot" style="background:#00463c"></span>Visa / relocation support<br><span class="dot" style="background:#6b7c77"></span>Other companies'; return d; };
-  lg.addTo(map);
-}
-
-// events
-$('q').addEventListener('input', (() => { let t; return () => { clearTimeout(t); t = setTimeout(() => { st.q = $('q').value.trim(); st.shown = 40; render(); }, 250); }; })());
-$('city').addEventListener('change', () => { st.city = $('city').value; st.shown = 40; render(true); });
-$('chips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { st.city = b.dataset.c; st.shown = 40; render(true); } });
-document.querySelectorAll('#lvl button').forEach(b => b.addEventListener('click', () => { st.lvl = b.dataset.v; st.shown = 40; render(); }));
-$('visa').addEventListener('change', () => { st.visa = $('visa').checked; render(); });
-$('en').addEventListener('change', () => { st.en = $('en').checked; st.shown = 40; render(); });
-$('vm').addEventListener('change', () => { st.vm = $('vm').checked; render(); });
-$('list').addEventListener('click', e => {
-  const o = e.target.closest('[data-open]'); if (o) return openCo(+o.dataset.open, false);
-  const f = e.target.closest('[data-fly]'); if (f && map) { const c = DATA.companies[+f.dataset.fly]; const p = c.pins.find(x => !st.city || x[0] === st.city) || c.pins[0]; document.body.dataset.view = 'map'; tabs(); map.flyTo([p[1], p[2]], 12); }
-  if (e.target.id === 'more') { st.shown += 40; renderList(); }
+// =====================================================================  events
+const render = fly => st.mode === 'live' ? renderLive() : renderList(fly);
+document.querySelectorAll('.modes button').forEach(b => b.addEventListener('click', () => {
+  st.mode = b.dataset.m; st.open = null; st.shown = 40;
+  if (st.mode === 'live' && !live.jobs.length && !live.loading) liveSearch(); else render(true);
+  if (st.mode === 'list' && map) map.flyTo([51.2, 10.4], 6);
+}));
+$('form').addEventListener('submit', e => { e.preventDefault(); st.where = $('where').value.trim() || 'Berlin'; st.q = $('q').value.trim(); st.radius = $('radius').value; if (st.mode === 'live') liveSearch(); else render(); });
+$('q').addEventListener('input', (() => { let t; return () => { if (st.mode !== 'list') return; clearTimeout(t); t = setTimeout(() => { st.q = $('q').value.trim(); st.shown = 40; renderList(); }, 250); }; })());
+$('radius').addEventListener('change', () => { st.radius = $('radius').value; liveSearch(); });
+$('noag').addEventListener('change', () => { st.noag = $('noag').checked; liveSearch(); });
+$('city').addEventListener('change', () => { st.city = $('city').value; st.shown = 40; renderList(true); });
+$('chips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (!b) return;
+  if (st.mode === 'live') { st.where = b.dataset.w; liveSearch(); } else { st.city = b.dataset.c; st.shown = 40; renderList(true); } });
+document.querySelectorAll('#lvl button').forEach(b => b.addEventListener('click', () => { st.lvl = b.dataset.v; st.shown = 40; st.mode === 'live' ? liveSearch() : renderList(); }));
+$('en').addEventListener('change', async () => { st.en = $('en').checked; st.shown = 40;
+  if (st.mode === 'live' && st.en && live.pages < 4 && live.jobs.length < live.total) { live.loading = true; renderLive(); try { await loadMore(3); } catch (e) {} live.loading = false; }
+  render(); });
+$('visa').addEventListener('change', () => { st.visa = $('visa').checked; st.shown = 40; render(); });
+$('vm').addEventListener('change', () => { st.vm = $('vm').checked; renderList(); });
+$('list').addEventListener('click', async e => {
+  const em = e.target.closest('[data-emp]'); if (em) return openEmp(em.dataset.emp, false);
+  const fe = e.target.closest('[data-flyemp]'); if (fe && map) { const j = live.jobs.find(x => x.co === fe.dataset.flyemp && x.lat); if (j) { document.body.dataset.view = 'map'; tabs(); map.flyTo([j.lat, j.lng], 14); } return; }
+  const o = e.target.closest('[data-open]'); if (o) { const ci = +o.dataset.open; st.open = st.open === ci ? null : ci; return renderList(); }
+  const f = e.target.closest('[data-fly]'); if (f && map) { const c = DATA.companies[+f.dataset.fly]; const p = c.pins.find(x => !st.city || x[0] === st.city) || c.pins[0]; document.body.dataset.view = 'map'; tabs(); map.flyTo([p[1], p[2]], 12); return; }
+  if (e.target.id === 'more') { st.shown += 40; render(); }
+  if (e.target.id === 'loadjobs') { e.target.disabled = true; e.target.textContent = 'Loading…'; try { await loadMore(1); } catch (err) {} renderLive(); }
 });
 document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => { document.body.dataset.view = b.dataset.t; tabs(); }));
 
-readUrl();
-initMap();
+$('places').innerHTML = BIG.map(c => `<option value="${esc(c)}">`).join('');
+readUrl(); syncControls(); initMap();
 fetch('data/jobs.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   DATA = d;
-  const visaCos = new Set(d.jobs.map(j => j.c).filter(c => d.companies[c].visa)).size;
-  $('stats').textContent = d.jobs.length
-    ? `${d.jobs.length.toLocaleString()} roles · ${new Set(d.jobs.map(j => j.c)).size} companies hiring · ${visaCos} with visa/relocation support · updated ${d.updated}`
-    : 'No jobs yet. Run the "Update jobs" action on GitHub once (see README).';
-  render(!!st.city);
-}).catch(() => { $('stats').textContent = 'Could not load data/jobs.json. Open the site through GitHub Pages or a local server, not as a file.'; });
+  VISA_KEYS = d.companies.filter(c => c.visa).map(c => ({k: normCo(c.name), offer: c.offer, name: c.name}));
+  if (st.mode === 'list') renderList(!!st.city); else renderLive();
+}).catch(() => { DATA = {companies: [], jobs: [], cities: {}, updated: ''}; if (st.mode === 'list') renderList(); });
+if (st.mode === 'live') liveSearch(); else renderList();
 }
 </script>
 </body>
